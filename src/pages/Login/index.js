@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { CircularProgress } from '@mui/material'
 import accountService from '../../services/account'
 import { setUser } from '../../reducers/userReducer'
+import { LOCAL_STORAGE_LOGGED_USER } from '../../utils/config'
 
 const initialValues = {
     username: '',
@@ -26,6 +27,7 @@ const Login = () => {
         setInProgress(true)
         accountService.login(credentials)
         .then(response => {
+            window.localStorage.setItem(LOCAL_STORAGE_LOGGED_USER, JSON.stringify(response))
             dispatch(setUser(response))
         })
         .catch(error => {

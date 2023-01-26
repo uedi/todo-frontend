@@ -1,12 +1,24 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { LOCAL_STORAGE_LOGGED_USER } from './utils/config'
 import PublicRoutes from './navigation/PublicRoutes'
 import Routes from './navigation/Routes'
 import PublicHeader from './components/PublicHeader'
+import { setUser } from './reducers/userReducer'
 
 const App = () => {
     const user = useSelector(state => state.user)
-console.log(user)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem(LOCAL_STORAGE_LOGGED_USER)
+        if(loggedUserJSON) {
+            const loggedUser = JSON.parse(loggedUserJSON)
+            dispatch(setUser(loggedUser))
+        }
+    }, [dispatch])
+
     if(!user) {
         return (
             <>
