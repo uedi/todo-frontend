@@ -1,9 +1,8 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
-const PublicHome = () => ( <div>PublicHome</div> )
-const Signup = () => ( <div>Signup</div> )
-const Login = () => ( <div>Login</div> )
+import PublicHome from '../pages/PublicHome'
+import Login from '../pages/Login'
+import Signup from '../pages/Singup'
 
 const PublicRoutes = () => {
     return (
