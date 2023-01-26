@@ -1,9 +1,9 @@
-const tokenReducer = (state = {}, action) => {
+const tokenReducer = (state = null, action) => {
     switch(action.type) {
         case 'SET_TOKEN':
-            return { ...state, token: action.data }
+            return action.data
         default:
-            return state
+            return null
     }
 }
 
