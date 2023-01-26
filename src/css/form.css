@@ -1,0 +1,22 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.signup-login-form {
+    width: 400px;
+}
+
+.form-topic {
+    margin-top: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.5em;
+}
