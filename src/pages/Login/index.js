@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import LoginForm from './LoginForm'
 import { Formik } from 'formik'
 import * as yup from 'yup'
+import { CircularProgress } from '@mui/material'
+import accountService from '../../services/account'
+import { setUser } from '../../reducers/userReducer'
 
 const initialValues = {
     username: '',
@@ -14,9 +18,28 @@ const validationSchema = yup.object().shape({
 })
 
 const Login = () => {
+    const [inProgress, setInProgress] = useState(false)
+
+    const dispatch = useDispatch()
 
     const onSubmit = credentials => {
-        console.log('login', credentials)
+        setInProgress(true)
+        accountService.login(credentials)
+        .then(response => {
+            dispatch(setUser(response))
+        })
+        .catch(error => {
+            console.log('error in login', error)
+            setInProgress(false)
+        })
+    }
+
+    if(inProgress) {
+        return (
+            <div className='center-view-page'>
+                <CircularProgress />
+            </div>
+        )
     }
 
     return (
