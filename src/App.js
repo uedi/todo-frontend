@@ -5,6 +5,7 @@ import PublicRoutes from './navigation/PublicRoutes'
 import Routes from './navigation/Routes'
 import PublicHeader from './components/PublicHeader'
 import { setUser } from './reducers/userReducer'
+import Navbar from './components/Navbar'
 
 const App = () => {
     const user = useSelector(state => state.user)
@@ -30,6 +31,7 @@ const App = () => {
 
     return (
         <>
+            <Navbar />
             <Routes />
         </>
     )
