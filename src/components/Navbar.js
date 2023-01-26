@@ -41,6 +41,7 @@ const Navbar = () => {
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'}}}>
                         <NavBarButton text='Home' onClick={() => navigate('/')} />
+                        <NavBarButton text='Groups' onClick={() => navigate('/groups')} />
                     </Box>
                     <Box sx={{ flexGrow: 0}}>
                         <Tooltip title='Menu'>
