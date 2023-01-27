@@ -1,20 +1,20 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 
-const GroupList = ({ groups }) => {
-    if(!groups) {
+const ListList = ({ lists }) => {
+    if(!lists) {
         return null
     }
 
-    const handleClick = (g) => {
-        console.log(g.name)
+    const handleClick = (l) => {
+        console.log(l.name)
     }
 
     return (
         <>  
-            { groups.map(group =>
-                <Box key={group.id}
-                    onClick={() => handleClick(group)}
+            { lists.map(list =>
+                <Box key={list.id}
+                    onClick={() => handleClick(list)}
                     sx={{
                         backgroundColor: 'white',
                         padding: 1,
@@ -22,15 +22,14 @@ const GroupList = ({ groups }) => {
                         marginBottom: 2,
                         '&:hover': {
                             backgroundColor: '#f5f5f5'
-                        },
-                        height: 100
+                        }
                     }}
                     >
-                    <Typography>{group.name}</Typography>
+                    <Typography>{list.name}</Typography>
                 </Box>
             )}
         </>
     )
 }
 
-export default GroupList
+export default ListList

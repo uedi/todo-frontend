@@ -8,13 +8,16 @@ import { setUser } from './reducers/userReducer'
 import { setToken } from './reducers/tokenReducer'
 import { setAuthToken } from './utils/auth'
 import { setGroups } from './reducers/groupsReducer'
+import { setLists } from './reducers/listsReducer'
 import groupsService from './services/groups'
+import listsService from './services/lists'
 import Navbar from './components/Navbar'
 
 const App = () => {
     const user = useSelector(state => state.user)
     const token = useSelector(state => state.token)
     const groups = useSelector(state => state.groups)
+    const lists = useSelector(state => state.lists)
 
     const dispatch = useDispatch()
     const authenticatedUser = user && token
@@ -47,6 +50,18 @@ const App = () => {
             })
         }
     }, [authenticatedUser, groups, dispatch])
+
+    useEffect(() => {
+        if(authenticatedUser && !lists) {
+            listsService.getAll()
+            .then(response => {
+                dispatch(setLists(response))
+            })
+            .catch(error => {
+                console.log('error in get lists', error)
+            })
+        }
+    }, [authenticatedUser, lists, dispatch])
 
     if(!user) {
         return (
