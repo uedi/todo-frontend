@@ -5,6 +5,7 @@ import { Container } from '@mui/material'
 import { Button } from '@mui/material'
 import CreateTodoDialog from '../../components/CreateTodoDialog'
 import todosService from '../../services/todos'
+import TodoList from '../../components/TodoList'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
@@ -48,7 +49,8 @@ const List = () => {
             >
                 Create new todo
             </Button>
-            <h3>List {list.name}</h3>
+            <h3>Todos ({list.name})</h3>
+            <TodoList todos={list.todos} />
             <CreateTodoDialog
                 open={todoOpen}
                 handleClose={handleCloseTodo}
