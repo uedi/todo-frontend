@@ -35,9 +35,12 @@ const App = () => {
         }
     }, [dispatch])
 
+    setAuthToken(user?.token)
+    /*
     useEffect(() => {
         setAuthToken(token)
     }, [token])
+    */
 
     useEffect(() => {
         if(authenticatedUser && !groups) {
