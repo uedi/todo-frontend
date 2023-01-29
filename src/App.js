@@ -9,8 +9,10 @@ import { setToken } from './reducers/tokenReducer'
 import { setAuthToken } from './utils/auth'
 import { setGroups } from './reducers/groupsReducer'
 import { setLists } from './reducers/listsReducer'
+import { setContacts } from './reducers/contactsReducer'
 import groupsService from './services/groups'
 import listsService from './services/lists'
+import contactsService from './services/contacts'
 import Navbar from './components/Navbar'
 
 const App = () => {
@@ -18,6 +20,7 @@ const App = () => {
     const token = useSelector(state => state.token)
     const groups = useSelector(state => state.groups)
     const lists = useSelector(state => state.lists)
+    const contacts = useSelector(state => state.contacts)
 
     const dispatch = useDispatch()
     const authenticatedUser = user && token
@@ -62,6 +65,18 @@ const App = () => {
             })
             .catch(error => {
                 console.log('error in get lists', error)
+            })
+        }
+    }, [authenticatedUser, lists, dispatch])
+
+    useEffect(() => {
+        if(authenticatedUser && !contacts) {
+            contactsService.getAll()
+            .then(response => {
+                dispatch(setContacts(response))
+            })
+            .catch(error => {
+                console.log('error in get contacts', error)
             })
         }
     }, [authenticatedUser, lists, dispatch])

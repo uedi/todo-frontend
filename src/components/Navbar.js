@@ -43,6 +43,7 @@ const Navbar = () => {
                         <NavBarButton text='Home' onClick={() => navigate('/')} />
                         <NavBarButton text='Groups' onClick={() => navigate('/groups')} />
                         <NavBarButton text='Lists' onClick={() => navigate('/lists')} />
+                        <NavBarButton text='Contacts' onClick={() => navigate('/contacts')} />
                     </Box>
                     <Box sx={{ flexGrow: 0}}>
                         <Tooltip title='Menu'>
