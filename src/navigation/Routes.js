@@ -9,6 +9,7 @@ import CreateList from '../pages/CreateList'
 import Contacts from '../pages/Contacts'
 import AddContact from '../pages/AddContact'
 import Account from '../pages/Account'
+import Contact from '../pages/Contact'
 
 const Home = () => ( <div></div>)
 
@@ -25,6 +26,7 @@ const Routes = () => {
                 <Route path='/lists/:id' element={<List />} />
                 <Route path='/contacts' element={<Contacts />} />
                 <Route path='/contacts/new' element={<AddContact />} />
+                <Route path='/contacts/:id' element={<Contact />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </RouterRoutes>

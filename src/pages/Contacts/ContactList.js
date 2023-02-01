@@ -1,14 +1,16 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const ContactList = ({ contacts }) => {
+    const navigate = useNavigate()
 
     if(!contacts) {
         return null
     }
 
     const handleClick = (id) => {
-        console.log(id)
+        navigate(id)
     }
 
     return (
