@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
+import TodoStatus from '../../components/TodoStatus'
 
 const GroupList = ({ groups }) => {
     const navigate = useNavigate()
@@ -20,16 +21,18 @@ const GroupList = ({ groups }) => {
                     onClick={() => handleClick(group.id)}
                     sx={{
                         backgroundColor: 'white',
-                        padding: 1,
-                        borderRadius: 5,
+                        padding: 2,
+                        borderRadius: 2,
                         marginBottom: 2,
                         '&:hover': {
                             backgroundColor: '#f5f5f5'
-                        },
-                        height: 100
+                        }
                     }}
                     >
-                    <Typography>{group.name}</Typography>
+                    <Typography
+                        sx={{ fontWeight: 'bold' }}
+                    >{group.name}</Typography>
+                    <TodoStatus todos={group.todos} />
                 </Box>
             )}
         </>

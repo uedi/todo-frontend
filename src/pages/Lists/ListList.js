@@ -1,18 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
+import TodoStatus from '../../components/TodoStatus'
 
 const ListListItem = ({ list, handleClick }) => {
-    const todosCount = list.todos ? list.todos.length : 0
-    const doneCount = list.todos ? list.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
-    const progress = todosCount > 0 ? doneCount / todosCount * 100 : 0
     return (
         <Box
             onClick={() => handleClick(list.id)}
             sx={{
                 backgroundColor: 'white',
-                padding: 1,
-                borderRadius: 5,
+                padding: 2,
+                borderRadius: 2,
                 marginBottom: 2,
                 '&:hover': {
                     backgroundColor: '#f5f5f5'
@@ -22,8 +20,7 @@ const ListListItem = ({ list, handleClick }) => {
             <Typography
                 sx={{ fontWeight: 'bold' }}
             >{list.name}</Typography>
-            <Typography>Done todos: {doneCount}/{todosCount}</Typography>
-            <Typography>{Math.round(progress)} %</Typography>
+            <TodoStatus todos={list.todos} />
         </Box>
     )
 }
