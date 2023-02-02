@@ -20,8 +20,8 @@ const ContactList = ({ contacts }) => {
                     onClick={() => handleClick(contact.contactId)}
                     sx={{
                         backgroundColor: 'white',
-                        padding: 1,
-                        borderRadius: 5,
+                        padding: 2,
+                        borderRadius: 2,
                         marginBottom: 2,
                         '&:hover': {
                             backgroundColor: '#f5f5f5'

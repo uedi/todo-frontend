@@ -15,7 +15,7 @@ const Home = () => ( <div></div>)
 
 const Routes = () => {
     return (
-        <div>
+        <>
             <RouterRoutes>
                 <Route path='/' element={<Home />} />
                 <Route path='/groups' element={<Groups />} />
@@ -30,7 +30,7 @@ const Routes = () => {
                 <Route path='/account' element={<Account />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </RouterRoutes>
-        </div>
+        </>
     )
 }
 

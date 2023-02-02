@@ -14,6 +14,7 @@ import groupsService from './services/groups'
 import listsService from './services/lists'
 import contactsService from './services/contacts'
 import Navbar from './components/Navbar'
+import { Box, Container } from '@mui/system'
 
 const App = () => {
     const user = useSelector(state => state.user)
@@ -91,10 +92,29 @@ const App = () => {
     }
 
     return (
-        <>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100vh'
+            }}
+        >
             <Navbar />
-            <Routes />
-        </>
+            <Box
+                sx={{
+                    flex: 1,
+                    overflow: 'auto'
+                }}
+            >
+                <Container maxWidth='sm'
+                    sx={{
+                        marginTop: 2
+                    }}
+                >
+                    <Routes />
+                </Container>
+            </Box>
+        </Box>
     )
 }
 

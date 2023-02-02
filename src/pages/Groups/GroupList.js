@@ -28,7 +28,7 @@ const GroupList = ({ groups }) => {
                             backgroundColor: '#f5f5f5'
                         }
                     }}
-                    >
+                >
                     <Typography
                         sx={{ fontWeight: 'bold' }}
                     >{group.name}</Typography>

@@ -36,17 +36,13 @@ const TodoList = ({ todos, updateTodo }) => {
     }
 
     return (
-        <Box
-            sx={{ maxWidth: 'sm' }}
-        >
+        <Box>
         {
             todos.map(todo =>
                 <Box key={todo.id}
                     sx={{
                         backgroundColor: 'white',
-                        padding: 1,
-                        paddingLeft: 2,
-                        paddingRight: 2,
+                        padding: 2,
                         borderRadius: 2,
                         marginBottom: 2,
                         display: 'flex',

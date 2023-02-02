@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Container } from '@mui/material'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import CreateTodoDialog from '../../components/CreateTodoDialog'
 import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
@@ -60,13 +59,13 @@ const List = () => {
     }
 
     return (
-        <Container maxWidth='lg'>
+        <>
             <Button
                 onClick={() => setTodoOpen(true)}
             >
                 Create new todo
             </Button>
-            <h3>Todos ({list.name})</h3>
+            <Typography variant='h5' sx={{ margin: 2 }}>Todos ({list.name})</Typography>
             <TodoList todos={list.todos} updateTodo={handleUpdateTodo} />
             <CreateTodoDialog
                 open={todoOpen}
@@ -79,7 +78,7 @@ const List = () => {
                 endDate={endDate}
                 setEndDate={setEndDate}
             />
-        </Container>
+        </>
     )
 }
 
