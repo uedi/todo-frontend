@@ -6,9 +6,15 @@ const listsReducer = (state = null, action) => {
             return state ? [...state, action.data] : [action.data]
         case 'ADD_TODO':
             const id = action.data.id
-            return state.map(l => l.id !== id ? l 
-                : l.todos ? {...l, todos: l.todos.push(action.data.todo)}
-                : {...l, todos: [action.data.todo]})
+            const lToUpdate = state.find(l => l.id === id)
+            if(!lToUpdate) {
+                return state
+            }
+            if(!lToUpdate.todos) {
+                lToUpdate.todos = []
+            }
+            lToUpdate.todos.push(action.data.todo)
+            return state.map(l => l.id !== id ? l : lToUpdate)
         case 'UPDATE_TODO':
             const listId = action.data.id
             const listToUpdate = state.find(l => l.id === listId)

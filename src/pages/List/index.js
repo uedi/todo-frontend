@@ -6,7 +6,7 @@ import { Button } from '@mui/material'
 import CreateTodoDialog from '../../components/CreateTodoDialog'
 import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
-import { updateTodo } from '../../reducers/listsReducer'
+import { addTodoToList, updateTodo } from '../../reducers/listsReducer'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
@@ -33,7 +33,7 @@ const List = () => {
         setTodoOpen(false)
         todosService.create(todoToCreate)
         .then(response => {
-            console.log(response)
+            dispatch(addTodoToList(list.id, response))
         })
         .catch(error => {
             console.log('error in create todo', error)
