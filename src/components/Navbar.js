@@ -37,7 +37,7 @@ const Navbar = () => {
 
     return (
         <AppBar position='static'>
-            <Container maxWidth='xl'>
+            <Container maxWidth='sm'>
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'}}}>
                         <NavBarButton text='Home' onClick={() => navigate('/')} />
