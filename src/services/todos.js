@@ -7,4 +7,9 @@ const create = async (data) => {
     return response.data
 }
 
-export default { create }
+const updateTodo = async (data) => {
+    const response = await axios.put(todosApiUrl, data, header())
+    return response.data
+}
+
+export default { create, updateTodo }

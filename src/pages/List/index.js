@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Container } from '@mui/material'
 import { Button } from '@mui/material'
 import CreateTodoDialog from '../../components/CreateTodoDialog'
 import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
+import { updateTodo } from '../../reducers/listsReducer'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
     const [todoName, setTodoName] = useState('')
     const lists = useSelector(state => state.lists)
     const params = useParams()
+    const dispatch = useDispatch()
 
     const list = lists && lists.find(l => l.id.toString() === params.id)
 
@@ -38,6 +40,17 @@ const List = () => {
         })
     }
 
+    const handleUpdateTodo = (data) => {
+        const dataToSend = { ...data, listId: list?.id }
+        todosService.updateTodo(dataToSend)
+        .then(response => {
+            dispatch(updateTodo(list?.id, response))
+        })
+        .catch(error => {
+            console.log('error in update todo', error)
+        })
+    }
+
     const handleSetTodoName = (event) => {
         setTodoName(event.target.value)
     }
@@ -50,7 +63,7 @@ const List = () => {
                 Create new todo
             </Button>
             <h3>Todos ({list.name})</h3>
-            <TodoList todos={list.todos} />
+            <TodoList todos={list.todos} updateTodo={handleUpdateTodo} />
             <CreateTodoDialog
                 open={todoOpen}
                 handleClose={handleCloseTodo}

@@ -1,13 +1,16 @@
 import React from 'react'
 import { Box, Typography, Checkbox } from '@mui/material'
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, updateTodo }) => {
     if(!todos) {
         return null
     }
 
     const handleChange = (id, newChecked) => {
-        console.log(id, newChecked)
+        updateTodo({
+            id: id,
+            done: newChecked
+        })
     }
 
     return (
