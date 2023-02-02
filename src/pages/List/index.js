@@ -11,6 +11,8 @@ import { addTodoToList, updateTodo } from '../../reducers/listsReducer'
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
     const [todoName, setTodoName] = useState('')
+    const [startDate, setStartDate] = useState()
+    const [endDate, setEndDate] = useState()
     const lists = useSelector(state => state.lists)
     const params = useParams()
     const dispatch = useDispatch()
@@ -28,7 +30,9 @@ const List = () => {
     const handleCreateTodo = () => {
         const todoToCreate = {
             name: todoName,
-            listId: list.id
+            listId: list.id,
+            start: startDate,
+            end: endDate
         }
         setTodoOpen(false)
         todosService.create(todoToCreate)
@@ -70,6 +74,10 @@ const List = () => {
                 handleCreate={handleCreateTodo}
                 todoName={todoName}
                 setTodoName={handleSetTodoName}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
             />
         </Container>
     )
