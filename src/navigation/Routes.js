@@ -10,6 +10,7 @@ import Contacts from '../pages/Contacts'
 import AddContact from '../pages/AddContact'
 import Account from '../pages/Account'
 import Contact from '../pages/Contact'
+import Messages from '../pages/Messages'
 
 const Home = () => ( <div></div>)
 
@@ -20,6 +21,7 @@ const Routes = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/groups' element={<Groups />} />
                 <Route path='/groups/new' element={<CreateGroup />} />
+                <Route path='/groups/:id/messages' element={<Messages />} />
                 <Route path='/groups/:id' element={<Group />} />
                 <Route path='/lists' element={<Lists />} />
                 <Route path='/lists/new' element={<CreateList />} />
