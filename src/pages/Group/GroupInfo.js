@@ -22,7 +22,9 @@ const GroupInfo = ({ group, messageCount }) => {
             >
                 { messageCount }
             </Button>
-            <Button variant='outlined' startIcon={<PeopleIcon />}>
+            <Button variant='outlined' startIcon={<PeopleIcon />}
+                onClick={() => navigate(`/groups/${group.id}/members`)}
+            >
                 {group.users ? group.users.length : 0}
             </Button>
         </Box>
