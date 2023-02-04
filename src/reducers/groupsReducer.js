@@ -4,6 +4,17 @@ const groupsReducer = (state = null, action) => {
             return action.data
         case 'ADD_GROUP':
             return state ? [...state, action.data] : [action.data]
+        case 'ADD_TODO':
+            const id = action.data.id
+            const gToUpdate = state.find(g => g.id === id)
+            if(!gToUpdate) {
+                return state
+            }
+            if(!gToUpdate.todos) {
+                gToUpdate.todos = []
+            }
+            gToUpdate.todos.push(action.data.todo)
+            return state.map(g => g.id !== id ? g : gToUpdate)
         case 'UPDATE_TODO':
             const groupId = action.data.id
             const groupToUpdate = state.find(g => g.id === groupId)
@@ -31,6 +42,16 @@ export const addGroup = group => {
     return {
         type: 'ADD_GROUP',
         data: group
+    }
+}
+
+export const addTodoToGroup = (id, todo) => {
+    return {
+        type: 'ADD_TODO',
+        data: {
+            id: id,
+            todo: todo
+        }
     }
 }
 

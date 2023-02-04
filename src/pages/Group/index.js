@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
-import { updateGroupTodo } from '../../reducers/groupsReducer'
+import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
+import CreateTodoDialog from '../../components/CreateTodoDialog'
 
 const Group = () => {
+    const [todoOpen, setTodoOpen] = useState(false)
+    const [todoName, setTodoName] = useState('')
+    const [startDate, setStartDate] = useState()
+    const [endDate, setEndDate] = useState()
     const groups = useSelector(state => state.groups)
     const params = useParams()
     const dispatch = useDispatch()
@@ -15,6 +20,31 @@ const Group = () => {
 
     if(!group) {
         return null
+    }
+
+    const handleCloseTodo = () => {
+        setTodoOpen(false)
+    }
+
+    const handleSetTodoName = (event) => {
+        setTodoName(event.target.value)
+    }
+
+    const handleCreateTodo = () => {
+        const todoToCreate = {
+            name: todoName,
+            groupId: group.id,
+            start: startDate,
+            end: endDate
+        }
+        setTodoOpen(false)
+        todosService.create(todoToCreate)
+        .then(response => {
+            dispatch(addTodoToGroup(group.id, response))
+        })
+        .catch(error => {
+            console.log('error in create todo', error)
+        })
     }
 
     const handleUpdateTodo = (data) => {
@@ -30,8 +60,24 @@ const Group = () => {
 
     return (
         <>
+            <Button
+                onClick={() => setTodoOpen(true)}
+            >
+                Create new todo
+            </Button>
             <Typography variant='h5' sx={{ margin: 2 }}>Todos ({group.name})</Typography>
             <TodoList todos={group.todos} updateTodo={handleUpdateTodo} />
+            <CreateTodoDialog
+                open={todoOpen}
+                handleClose={handleCloseTodo}
+                handleCreate={handleCreateTodo}
+                todoName={todoName}
+                setTodoName={handleSetTodoName}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+            />
         </>
         
     )
