@@ -9,9 +9,9 @@ const messagesReducer = (state = {}, action) => {
         }
         case 'ADD_GROUP_MESSAGE': {
             const msgs = state[action.data.id] || []
-            msgs.push(action.data.message)
+            const newMsgs = [action.data.message, ...msgs]
             const g = {}
-            g[action.data.id] = msgs
+            g[action.data.id] = newMsgs
             return { ...state, ...g }
         }
         default:
