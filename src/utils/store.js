@@ -6,6 +6,7 @@ import listsReducer from '../reducers/listsReducer'
 import notificationReducer from '../reducers/notificationReducer'
 import contactsReducer from '../reducers/contactsReducer'
 import tokenReducer from '../reducers/tokenReducer'
+import messagesReducer from '../reducers/messagesReducer'
 
 const appReducer = combineReducers({
     user: userReducer,
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
     lists: listsReducer,
     notification: notificationReducer,
     contacts: contactsReducer,
-    token: tokenReducer
+    token: tokenReducer,
+    messages: messagesReducer
 })
 
 const rootReducer = (state, action) => {
