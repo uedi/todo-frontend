@@ -5,13 +5,10 @@ import { Button, Typography } from '@mui/material'
 import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
 import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
-import CreateTodoDialog from '../../components/CreateTodoDialog'
+import CreateTodo from '../../components/CreateTodo'
 
 const Group = () => {
     const [todoOpen, setTodoOpen] = useState(false)
-    const [todoName, setTodoName] = useState('')
-    const [startDate, setStartDate] = useState()
-    const [endDate, setEndDate] = useState()
     const groups = useSelector(state => state.groups)
     const params = useParams()
     const dispatch = useDispatch()
@@ -26,16 +23,10 @@ const Group = () => {
         setTodoOpen(false)
     }
 
-    const handleSetTodoName = (event) => {
-        setTodoName(event.target.value)
-    }
-
-    const handleCreateTodo = () => {
+    const handleCreateTodo = (data) => {
         const todoToCreate = {
-            name: todoName,
-            groupId: group.id,
-            start: startDate,
-            end: endDate
+            ...data,
+            groupId: group.id
         }
         setTodoOpen(false)
         todosService.create(todoToCreate)
@@ -67,16 +58,10 @@ const Group = () => {
             </Button>
             <Typography variant='h5' sx={{ margin: 2 }}>Todos ({group.name})</Typography>
             <TodoList todos={group.todos} updateTodo={handleUpdateTodo} />
-            <CreateTodoDialog
-                open={todoOpen}
-                handleClose={handleCloseTodo}
-                handleCreate={handleCreateTodo}
-                todoName={todoName}
-                setTodoName={handleSetTodoName}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
+            <CreateTodo
+                isOpen={todoOpen}
+                close={handleCloseTodo}
+                createTodo={handleCreateTodo}
             />
         </>
         
