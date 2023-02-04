@@ -6,6 +6,7 @@ import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
 import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
 import CreateTodo from '../../components/CreateTodo'
+import GroupInfo from './GroupInfo'
 
 const Group = () => {
     const [todoOpen, setTodoOpen] = useState(false)
@@ -56,6 +57,7 @@ const Group = () => {
             >
                 Create new todo
             </Button>
+            <GroupInfo />
             <Typography variant='h5' sx={{ margin: 2 }}>Todos ({group.name})</Typography>
             <TodoList todos={group.todos} updateTodo={handleUpdateTodo} />
             <CreateTodo
