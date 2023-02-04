@@ -15,7 +15,7 @@ const Messages = () => {
 
     return (
         <>
-            <Typography variant='h5' sx={{ margin: 2 }}>Messages ({group.name})</Typography>
+            <Typography variant='h5' sx={{ margin: 2 }}>Messages ({group?.name})</Typography>
             <MessageInput groupId={groupId} />
             <MessageList messages={groupMessages} />
         </>
