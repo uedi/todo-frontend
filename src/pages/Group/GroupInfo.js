@@ -3,7 +3,7 @@ import { Button, Box } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat'
 import PeopleIcon from '@mui/icons-material/People'
 
-const GroupInfo = () => {
+const GroupInfo = ({ group, messageCount }) => {
     return (
     <Box
         sx={{
@@ -15,10 +15,10 @@ const GroupInfo = () => {
         }}
     >
         <Button variant='outlined' startIcon={<ChatIcon />}>
-            0
+            { messageCount }
         </Button>
         <Button variant='outlined' startIcon={<PeopleIcon />}>
-            0
+            {group.users ? group.users.length : 0}
         </Button>
     </Box>
     )
