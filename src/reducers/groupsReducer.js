@@ -26,6 +26,14 @@ const groupsReducer = (state = null, action) => {
             const newGroup = { ...groupToUpdate, todos: newTodos}
             return state.map(g => g.id !== groupId ? g
                 : newGroup)
+        case 'SET_MEMBERS':
+            const gid = action.data.id
+            const g =  state.find(gg => gg.id === gid)
+            if(!g) {
+                return state
+            }
+            const newG = { ...g, users: action.data.users }
+            return state.map(gg => gg.id !== gid ? gg : newG)
         default:
             return state
     }
@@ -61,6 +69,16 @@ export const updateGroupTodo = (id, todo) => {
         data: {
             id: id,
             todo: todo
+        }
+    }
+}
+
+export const setMembers = (id, users) => {
+    return {
+        type: 'SET_MEMBERS',
+        data: {
+            id: id,
+            users: users
         }
     }
 }

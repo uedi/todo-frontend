@@ -12,4 +12,9 @@ const create = async (data) => {
     return response.data
 }
 
-export default { getAll, create }
+const addMember = async (id, data) => {
+    const response = await axios.post(`${groupsApiUrl}/${id}/members`, data, header())
+    return response.data
+}
+
+export default { getAll, create, addMember }
