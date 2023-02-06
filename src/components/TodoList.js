@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Typography, Checkbox } from '@mui/material'
+import { Box, Typography, Checkbox, IconButton } from '@mui/material'
 import { format } from 'date-fns'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const DateInfo = ({ todo }) => {
     const startDate = todo.start ? Date.parse(todo.start) : null
@@ -23,7 +24,7 @@ const DateInfo = ({ todo }) => {
     )
 }
 
-const TodoList = ({ todos, updateTodo }) => {
+const TodoList = ({ todos, updateTodo, deleteTodo, showDelete  }) => {
     if(!todos) {
         return null
     }
@@ -62,6 +63,15 @@ const TodoList = ({ todos, updateTodo }) => {
                         <Checkbox checked={todo.done} onChange={
                             (event) => handleChange(todo.id, event.target.checked)
                         } />
+                        {showDelete &&
+                        <IconButton
+                            size='small'
+                            color='error'
+                            onClick={() => deleteTodo(todo.id)}
+                        >
+                            <DeleteIcon color='red' />
+                        </IconButton>
+                        }
                     </Box>
                     <DateInfo todo={todo} />
                 </Box>

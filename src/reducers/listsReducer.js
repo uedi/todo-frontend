@@ -26,6 +26,15 @@ const listsReducer = (state = null, action) => {
             const newList = { ...listToUpdate, todos: newTodos}
             return state.map(l => l.id !== listId ? l
                 : newList)
+        case 'DELETE_TODO': {
+            const l = state.find(list => list.id === action.data.listId)
+            if(!l || !l.todos) {
+                return state
+            }
+            const newTs = l.todos.filter(t => t.id !== action.data.todoId)
+            const newL = { ...l, todos: newTs }
+            return state.map(list => list.id !== l.id ? list : newL)
+        }
         default:
             return state
     }
@@ -61,6 +70,16 @@ export const updateTodo = (id, todo) => {
         data: {
             id: id,
             todo: todo
+        }
+    }
+}
+
+export const deleteTodo = (listId, todoId) => {
+    return {
+        type: 'DELETE_TODO',
+        data: {
+            listId: listId,
+            todoId: todoId
         }
     }
 }

@@ -12,4 +12,9 @@ const updateTodo = async (data) => {
     return response.data
 }
 
-export default { create, updateTodo }
+const deleteTodo = async (id) => {
+    const response = await axios.delete(`${todosApiUrl}/${id}`, header())
+    return response.data
+}
+
+export default { create, updateTodo, deleteTodo }

@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Button, Typography } from '@mui/material'
+import { Button, Typography, Box, IconButton } from '@mui/material'
 import CreateTodo from '../../components/CreateTodo'
 import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
-import { addTodoToList, updateTodo } from '../../reducers/listsReducer'
+import { addTodoToList, updateTodo, deleteTodo } from '../../reducers/listsReducer'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
     const lists = useSelector(state => state.lists)
+    const [showDelete, setShowDelete] = useState(false)
     const params = useParams()
     const dispatch = useDispatch()
 
@@ -49,6 +51,17 @@ const List = () => {
         })
     }
 
+    const handleDeleteTodo = (id) => {
+        todosService.deleteTodo(id)
+        .then(() => {})
+        .catch(error => {
+            console.log('error in delete todo', error)
+        })
+        .finally(() => {
+            dispatch(deleteTodo(list.id, id))
+        })
+    }
+
     return (
         <>
             <Button
@@ -56,8 +69,43 @@ const List = () => {
             >
                 Create new todo
             </Button>
-            <Typography variant='h5' sx={{ margin: 2 }}>Todos ({list.name})</Typography>
-            <TodoList todos={list.todos} updateTodo={handleUpdateTodo} />
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Typography variant='h5'
+                    sx={{
+                        margin: 2,
+                        flex: 1
+                    }}
+                >
+                    Todos ({list.name})
+                </Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        marginRight: 2
+                    }}
+                >
+                    <IconButton
+                        size='small'
+                        onClick={() => setShowDelete(!showDelete)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>
+            </Box>
+            <TodoList
+                todos={list.todos}
+                updateTodo={handleUpdateTodo}
+                deleteTodo={handleDeleteTodo}
+                showDelete={showDelete}
+            />
             <CreateTodo
                 isOpen={todoOpen}
                 close={handleCloseTodo}
