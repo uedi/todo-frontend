@@ -34,6 +34,14 @@ const groupsReducer = (state = null, action) => {
             }
             const newG = { ...g, users: action.data.users }
             return state.map(gg => gg.id !== gid ? gg : newG)
+        case 'DELETE_TODO':
+            const gg = state.find(g => g.id === action.data.groupId)
+            if(!gg || !gg.todos) {
+                return state
+            }
+            const ggNewTodos = gg.todos.filter(t => t.id !== action.data.todoId)
+            const newGg = { ...gg, todos: ggNewTodos}
+            return state.map(g => g.id !== gg.id ? g : newGg)
         default:
             return state
     }
@@ -79,6 +87,16 @@ export const setMembers = (id, users) => {
         data: {
             id: id,
             users: users
+        }
+    }
+}
+
+export const deleteGroupTodo = (groupId, todoId) => {
+    return {
+        type: 'DELETE_TODO',
+        data: {
+            groupId: groupId,
+            todoId: todoId
         }
     }
 }

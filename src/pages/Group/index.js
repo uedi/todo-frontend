@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Button, Typography } from '@mui/material'
+import { Button, Typography, Box, IconButton } from '@mui/material'
 import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
 import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
@@ -10,12 +10,15 @@ import UpdateTodo from '../../components/UpdateTodo'
 import GroupInfo from './GroupInfo'
 import messagesService from '../../services/messages'
 import { setGroupMessages } from '../../reducers/messagesReducer'
+import { deleteGroupTodo } from '../../reducers/groupsReducer'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const Group = () => {
     const [group, setGroup] = useState()
     const [todoOpen, setTodoOpen] = useState(false)
     const [todoToUpdate, setTodoToUpdate] = useState()
     const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
     const groups = useSelector(state => state.groups)
     const messages = useSelector(state => state.messages)
     const params = useParams()
@@ -81,6 +84,17 @@ const Group = () => {
         handleUpdateTodo(data)
     }
 
+    const handleDeleteTodo = (id) => {
+        todosService.deleteTodo(id)
+        .then(() => {})
+        .catch(error => {
+            console.log('error in delete todo', error)
+        })
+        .finally(() => {
+            dispatch(deleteGroupTodo(group.id, id))
+        })
+    }
+
     const todoClicked = (todo) => {
         setTodoToUpdate(todo)
         setUpdateTodoOpen(true)
@@ -98,11 +112,43 @@ const Group = () => {
                 Create new todo
             </Button>
             <GroupInfo group={group} messageCount={messageCount} />
-            <Typography variant='h5' sx={{ margin: 2 }}>Todos ({group.name})</Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Typography variant='h5'
+                    sx={{
+                        margin: 2,
+                        flex: 1
+                    }}
+                >
+                    Todos ({group.name})
+                </Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        marginRight: 2
+                    }}
+                >
+                    <IconButton
+                        size='small'
+                        onClick={() => setShowDelete(!showDelete)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>
+            </Box>
             <TodoList
                 todos={group.todos}
                 updateTodo={handleUpdateTodo}
                 todoClicked={todoClicked}
+                showDelete={showDelete}
+                deleteTodo={handleDeleteTodo}
             />
             <CreateTodo
                 isOpen={todoOpen}
