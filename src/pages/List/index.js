@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Button, Typography, Box, IconButton } from '@mui/material'
 import CreateTodo from '../../components/CreateTodo'
+import UpdateTodo from '../../components/UpdateTodo'
 import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
 import { addTodoToList, updateTodo, deleteTodo } from '../../reducers/listsReducer'
@@ -10,6 +11,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
+    const [todoToUpdate, setTodoToUpdate] = useState()
+    const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
     const lists = useSelector(state => state.lists)
     const [showDelete, setShowDelete] = useState(false)
     const params = useParams()
@@ -23,6 +26,10 @@ const List = () => {
 
     const handleCloseTodo = () => {
         setTodoOpen(false)
+    }
+
+    const handleCloseUpdateTodo = () => {
+        setUpdateTodoOpen(false)
     }
 
     const handleCreateTodo = (data) => {
@@ -51,6 +58,11 @@ const List = () => {
         })
     }
 
+    const handleUpdateTodoData = (data) => {
+        setUpdateTodoOpen(false)
+        handleUpdateTodo(data)
+    }
+
     const handleDeleteTodo = (id) => {
         todosService.deleteTodo(id)
         .then(() => {})
@@ -60,6 +72,11 @@ const List = () => {
         .finally(() => {
             dispatch(deleteTodo(list.id, id))
         })
+    }
+
+    const todoClicked = (todo) => {
+        setTodoToUpdate(todo)
+        setUpdateTodoOpen(true)
     }
 
     return (
@@ -105,11 +122,18 @@ const List = () => {
                 updateTodo={handleUpdateTodo}
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
+                todoClicked={todoClicked}
             />
             <CreateTodo
                 isOpen={todoOpen}
                 close={handleCloseTodo}
                 createTodo={handleCreateTodo}
+            />
+            <UpdateTodo
+                isOpen={updateTodoOpen}
+                close={handleCloseUpdateTodo}
+                updateTodo={handleUpdateTodoData}
+                todo={todoToUpdate}
             />
         </>
     )

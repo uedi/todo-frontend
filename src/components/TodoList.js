@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, Checkbox, IconButton } from '@mui/material'
+import { Box, Typography, Checkbox, IconButton, Button } from '@mui/material'
 import { format } from 'date-fns'
 import DeleteIcon from '@mui/icons-material/Delete'
 
@@ -24,7 +24,7 @@ const DateInfo = ({ todo }) => {
     )
 }
 
-const TodoList = ({ todos, updateTodo, deleteTodo, showDelete  }) => {
+const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked }) => {
     if(!todos) {
         return null
     }
@@ -57,9 +57,19 @@ const TodoList = ({ todos, updateTodo, deleteTodo, showDelete  }) => {
                             alignItems: 'center'
                         }}
                     >
-                        <Typography
-                            sx={{ flex: 1, fontWeight: '600' }}
-                        >{todo.name}</Typography>
+                        <Box sx={{ flex: 1}}>
+                            <Button
+                                onClick={() => todoClicked(todo)}
+                            >
+                                <Typography
+                                    sx={{
+                                        flex: 1,
+                                        fontWeight: '600',
+                                        textAlign: 'left'
+                                    }}
+                                >{todo.name}</Typography>
+                            </Button>
+                        </Box>
                         <Checkbox checked={todo.done} onChange={
                             (event) => handleChange(todo.id, event.target.checked)
                         } />

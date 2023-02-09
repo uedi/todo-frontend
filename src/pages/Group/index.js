@@ -6,6 +6,7 @@ import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
 import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
 import CreateTodo from '../../components/CreateTodo'
+import UpdateTodo from '../../components/UpdateTodo'
 import GroupInfo from './GroupInfo'
 import messagesService from '../../services/messages'
 import { setGroupMessages } from '../../reducers/messagesReducer'
@@ -13,6 +14,8 @@ import { setGroupMessages } from '../../reducers/messagesReducer'
 const Group = () => {
     const [group, setGroup] = useState()
     const [todoOpen, setTodoOpen] = useState(false)
+    const [todoToUpdate, setTodoToUpdate] = useState()
+    const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
     const groups = useSelector(state => state.groups)
     const messages = useSelector(state => state.messages)
     const params = useParams()
@@ -43,6 +46,10 @@ const Group = () => {
         setTodoOpen(false)
     }
 
+    const handleCloseUpdateTodo = () => {
+        setUpdateTodoOpen(false)
+    }
+
     const handleCreateTodo = (data) => {
         const todoToCreate = {
             ...data,
@@ -69,6 +76,16 @@ const Group = () => {
         })
     }
 
+    const handleUpdateTodoData = (data) => {
+        setUpdateTodoOpen(false)
+        handleUpdateTodo(data)
+    }
+
+    const todoClicked = (todo) => {
+        setTodoToUpdate(todo)
+        setUpdateTodoOpen(true)
+    }
+
     if(!group) {
         return null
     }
@@ -82,11 +99,21 @@ const Group = () => {
             </Button>
             <GroupInfo group={group} messageCount={messageCount} />
             <Typography variant='h5' sx={{ margin: 2 }}>Todos ({group.name})</Typography>
-            <TodoList todos={group.todos} updateTodo={handleUpdateTodo} />
+            <TodoList
+                todos={group.todos}
+                updateTodo={handleUpdateTodo}
+                todoClicked={todoClicked}
+            />
             <CreateTodo
                 isOpen={todoOpen}
                 close={handleCloseTodo}
                 createTodo={handleCreateTodo}
+            />
+            <UpdateTodo
+                isOpen={updateTodoOpen}
+                close={handleCloseUpdateTodo}
+                updateTodo={handleUpdateTodoData}
+                todo={todoToUpdate}
             />
         </>
         

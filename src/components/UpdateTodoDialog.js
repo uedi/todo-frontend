@@ -3,9 +3,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box } from '
 import { TextField } from '@mui/material'
 import DatePicker from './DatePicker'
 
-const CreateTodoDialog = ({ open, handleClose, handleCreate, todoName, setTodoName,
-    startDate, setStartDate, endDate, setEndDate
-}) => {
+const UpdateTodoDialog = ({ open, handleClose, handleUpdate, todoName, setTodoName,
+    startDate, setStartDate, endDate, setEndDate, changed }) => {
     return (
         <Dialog
             fullWidth={true}
@@ -13,7 +12,7 @@ const CreateTodoDialog = ({ open, handleClose, handleCreate, todoName, setTodoNa
             open={open}
             onClose={handleClose}
         >
-            <DialogTitle>Create new todo</DialogTitle>
+            <DialogTitle>Update todo</DialogTitle>
             <DialogContent>
                 <TextField
                     sx={{ marginTop: 2, marginBottom: 5 }}
@@ -32,14 +31,14 @@ const CreateTodoDialog = ({ open, handleClose, handleCreate, todoName, setTodoNa
             <DialogActions>
                 <Button onClick={handleClose}>Close</Button>
                 <Button
-                    disabled={!todoName || todoName === ''}
-                    onClick={handleCreate}
+                    disabled={!changed}
+                    onClick={handleUpdate}
                 >
-                    Create
+                    Update
                 </Button>
             </DialogActions>
         </Dialog>
     )
 }
 
-export default CreateTodoDialog
+export default UpdateTodoDialog
