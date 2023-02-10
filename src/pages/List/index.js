@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Button, Typography, Box, IconButton } from '@mui/material'
 import CreateTodo from '../../components/CreateTodo'
 import UpdateTodo from '../../components/UpdateTodo'
 import todosService from '../../services/todos'
 import listsService from '../../services/lists'
 import TodoList from '../../components/TodoList'
-import { addTodoToList, updateTodo, deleteTodo, updateList } from '../../reducers/listsReducer'
+import { addTodoToList, updateTodo, deleteTodo, updateList, deleteList } from '../../reducers/listsReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditList from './EditList'
 
@@ -20,6 +20,7 @@ const List = () => {
     const [showDelete, setShowDelete] = useState(false)
     const params = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const list = lists && lists.find(l => l.id.toString() === params.id)
 
@@ -90,6 +91,18 @@ const List = () => {
         })
         .catch(error => {
             console.log('error in update list', error)
+        })
+    }
+
+    const handleDeleteList = (id) => {
+        setEditOpen(false)
+        listsService.remove(id)
+        .then(() => {
+            navigate('/lists')
+            dispatch(deleteList(id))
+        })
+        .catch(error => {
+            console.log('error in delete list', error)
         })
     }
 
@@ -178,6 +191,7 @@ const List = () => {
                 close={() => setEditOpen(false)}
                 list={list}
                 update={handleUpdateList}
+                deleteList={handleDeleteList}
             />
         </>
     )

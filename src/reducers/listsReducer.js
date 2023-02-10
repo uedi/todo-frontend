@@ -8,6 +8,10 @@ const listsReducer = (state = null, action) => {
             return state ?
                 state.map(l => l.id === action.data.id ? action.data : l)
                 : [action.data]
+        case 'DELETE_LIST':
+            return state ?
+                state.filter(l => l.id !== action.data)
+                : state
         case 'ADD_TODO':
             const id = action.data.id
             const lToUpdate = state.find(l => l.id === id)
@@ -62,6 +66,13 @@ export const updateList = list => {
     return {
         type: 'UPDATE_LIST',
         data: list
+    }
+}
+
+export const deleteList = id => {
+    return {
+        type: 'DELETE_LIST',
+        data: id
     }
 }
 

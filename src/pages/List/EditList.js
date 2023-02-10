@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import EditListDialog from './EditListDialog'
 
-const EditList = ({ list, isOpen, close, update }) => {
+const EditList = ({ list, isOpen, close, update, deleteList }) => {
     const [listName, setListName] = useState('')
     const nameChanged = list && list.name !== listName && listName !== ''
 
@@ -29,6 +29,7 @@ const EditList = ({ list, isOpen, close, update }) => {
             changed={nameChanged}
             setListName={handleSetListName}
             update={handleUpdate}
+            deleteList={() => deleteList(list.id)}
         />
     )
 }
