@@ -60,6 +60,9 @@ const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked }) =>
                         <Box sx={{ flex: 1}}>
                             <Button
                                 onClick={() => todoClicked(todo)}
+                                sx={{
+                                    textTransform: 'unset'
+                                }}
                             >
                                 <Typography
                                     sx={{
