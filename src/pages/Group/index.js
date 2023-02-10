@@ -106,12 +106,20 @@ const Group = () => {
 
     return (
         <>
+            <Typography variant='h5'
+                    sx={{
+                        margin: 2,
+                        flex: 1
+                    }}
+                >
+                    Group: {group.name}
+            </Typography>
+            <GroupInfo group={group} messageCount={messageCount} />
             <Button
                 onClick={() => setTodoOpen(true)}
             >
                 Create new todo
             </Button>
-            <GroupInfo group={group} messageCount={messageCount} />
             <Box
                 sx={{
                     display: 'flex',
@@ -121,11 +129,14 @@ const Group = () => {
             >
                 <Typography variant='h5'
                     sx={{
-                        margin: 2,
+                        marginBottom: 2,
+                        marginLeft: 2,
+                        marginRight: 2,
+                        marginTop: 1,
                         flex: 1
                     }}
                 >
-                    Todos ({group.name})
+                    Todos
                 </Typography>
                 <Box
                     sx={{

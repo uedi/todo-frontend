@@ -81,11 +81,6 @@ const List = () => {
 
     return (
         <>
-            <Button
-                onClick={() => setTodoOpen(true)}
-            >
-                Create new todo
-            </Button>
             <Typography variant='h5'
                 sx={{
                     margin: 2,
@@ -94,6 +89,11 @@ const List = () => {
             >
                 List: {list.name}
             </Typography>
+            <Button
+                onClick={() => setTodoOpen(true)}
+            >
+                Create new todo
+            </Button>
             <Box
                 sx={{
                     display: 'flex',
@@ -103,7 +103,10 @@ const List = () => {
             >
                 <Typography variant='h5'
                     sx={{
-                        margin: 2,
+                        marginBottom: 2,
+                        marginLeft: 2,
+                        marginRight: 2,
+                        marginTop: 1,
                         flex: 1
                     }}
                 >

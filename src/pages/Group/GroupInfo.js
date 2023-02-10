@@ -13,8 +13,7 @@ const GroupInfo = ({ group, messageCount }) => {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                paddingTop: 2,
-                paddingBottom: 1
+                paddingBottom: 4,
             }}
         >
             <Button variant='outlined' startIcon={<ChatIcon />}
