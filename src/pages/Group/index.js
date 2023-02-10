@@ -4,14 +4,16 @@ import { useParams } from 'react-router-dom'
 import { Button, Typography, Box, IconButton } from '@mui/material'
 import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
-import { updateGroupTodo, addTodoToGroup } from '../../reducers/groupsReducer'
+import { updateGroupTodo, addTodoToGroup, deleteGroupTodo,
+    updateGroup } from '../../reducers/groupsReducer'
 import CreateTodo from '../../components/CreateTodo'
 import UpdateTodo from '../../components/UpdateTodo'
 import GroupInfo from './GroupInfo'
 import messagesService from '../../services/messages'
+import groupsService from '../../services/groups'
 import { setGroupMessages } from '../../reducers/messagesReducer'
-import { deleteGroupTodo } from '../../reducers/groupsReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
+import EditGroup from './EditGroup'
 
 const Group = () => {
     const [group, setGroup] = useState()
@@ -19,11 +21,13 @@ const Group = () => {
     const [todoToUpdate, setTodoToUpdate] = useState()
     const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
+    const [editOpen, setEditOpen] = useState(false)
     const groups = useSelector(state => state.groups)
     const messages = useSelector(state => state.messages)
     const params = useParams()
     const dispatch = useDispatch()
     const messageCount = group && messages[group.id] ? messages[group.id].length : null
+    const canModify = group?.membership?.owner
 
     useEffect(() => {
         if(groups) {
@@ -104,16 +108,42 @@ const Group = () => {
         return null
     }
 
+    const handleUpdateGroup = (id, data) => {
+        setEditOpen(false)
+        groupsService.update(id, data)
+        .then(response => {
+            dispatch(updateGroup(response))
+        })
+        .catch(error => {
+            console.log('error in update group', error)
+        })
+    }
+
     return (
         <>
-            <Typography variant='h5'
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    margin: 2
+                }}
+            >
+                <Typography variant='h5'>
+                    { canModify ? 'Group:' : `Group: ${group.name}` }
+                </Typography>
+                { canModify &&
+                <Button
+                    onClick={() => setEditOpen(true)}
                     sx={{
-                        margin: 2,
-                        flex: 1
+                        fontSize: 21,
+                        textTransform: 'unset'
                     }}
                 >
-                    Group: {group.name}
-            </Typography>
+                    {group.name}
+                </Button>
+                }
+            </Box>
             <GroupInfo group={group} messageCount={messageCount} />
             <Button
                 onClick={() => setTodoOpen(true)}
@@ -172,6 +202,14 @@ const Group = () => {
                 updateTodo={handleUpdateTodoData}
                 todo={todoToUpdate}
             />
+            { canModify &&
+            <EditGroup
+                isOpen={editOpen}
+                close={() => setEditOpen(false)}
+                group={group}
+                update={handleUpdateGroup}
+            />
+            }
         </>
         
     )
