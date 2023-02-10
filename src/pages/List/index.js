@@ -5,8 +5,9 @@ import { Button, Typography, Box, IconButton } from '@mui/material'
 import CreateTodo from '../../components/CreateTodo'
 import UpdateTodo from '../../components/UpdateTodo'
 import todosService from '../../services/todos'
+import listsService from '../../services/lists'
 import TodoList from '../../components/TodoList'
-import { addTodoToList, updateTodo, deleteTodo } from '../../reducers/listsReducer'
+import { addTodoToList, updateTodo, deleteTodo, updateList } from '../../reducers/listsReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditList from './EditList'
 
@@ -81,8 +82,15 @@ const List = () => {
         setUpdateTodoOpen(true)
     }
 
-    const handleUpdateList = (data) => {
-        console.log('update', data)
+    const handleUpdateList = (id, data) => {
+        setEditOpen(false)
+        listsService.update(id, data)
+        .then(response => {
+            dispatch(updateList(response))
+        })
+        .catch(error => {
+            console.log('error in update list', error)
+        })
     }
 
     return (

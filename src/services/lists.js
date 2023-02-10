@@ -12,4 +12,9 @@ const create = async (data) => {
     return response.data
 }
 
-export default { getAll, create }
+const update = async (id, data) => {
+    const response = await axios.put(`${listsApiUrl}/${id}`, data, header())
+    return response.data
+}
+
+export default { getAll, create, update }

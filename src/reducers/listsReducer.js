@@ -4,6 +4,10 @@ const listsReducer = (state = null, action) => {
             return action.data
         case 'ADD_LIST':
             return state ? [...state, action.data] : [action.data]
+        case 'UPDATE_LIST':
+            return state ?
+                state.map(l => l.id === action.data.id ? action.data : l)
+                : [action.data]
         case 'ADD_TODO':
             const id = action.data.id
             const lToUpdate = state.find(l => l.id === id)
@@ -50,6 +54,13 @@ export const setLists = lists => {
 export const addList = list => {
     return {
         type: 'ADD_LIST',
+        data: list
+    }
+}
+
+export const updateList = list => {
+    return {
+        type: 'UPDATE_LIST',
         data: list
     }
 }

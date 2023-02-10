@@ -16,8 +16,7 @@ const EditList = ({ list, isOpen, close, update }) => {
     }
 
     const handleUpdate = () => {
-        update({
-            id: list.id,
+        update(list.id, {
             name: listName
         })
     }
