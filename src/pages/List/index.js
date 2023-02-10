@@ -8,9 +8,11 @@ import todosService from '../../services/todos'
 import TodoList from '../../components/TodoList'
 import { addTodoToList, updateTodo, deleteTodo } from '../../reducers/listsReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
+import EditList from './EditList'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
+    const [editOpen, setEditOpen] = useState(false)
     const [todoToUpdate, setTodoToUpdate] = useState()
     const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
     const lists = useSelector(state => state.lists)
@@ -79,16 +81,33 @@ const List = () => {
         setUpdateTodoOpen(true)
     }
 
+    const handleUpdateList = (data) => {
+        console.log('update', data)
+    }
+
     return (
         <>
-            <Typography variant='h5'
+            <Box
                 sx={{
-                    margin: 2,
-                    flex: 1
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    margin: 2
                 }}
             >
-                List: {list.name}
-            </Typography>
+                <Typography variant='h5'>
+                    List:
+                </Typography>
+                <Button
+                    onClick={() => setEditOpen(true)}
+                    sx={{
+                        fontSize: 21,
+                        textTransform: 'unset'
+                    }}
+                >
+                    {list.name}
+                </Button>
+            </Box>
             <Button
                 onClick={() => setTodoOpen(true)}
             >
@@ -145,6 +164,12 @@ const List = () => {
                 close={handleCloseUpdateTodo}
                 updateTodo={handleUpdateTodoData}
                 todo={todoToUpdate}
+            />
+            <EditList
+                isOpen={editOpen}
+                close={() => setEditOpen(false)}
+                list={list}
+                update={handleUpdateList}
             />
         </>
     )
