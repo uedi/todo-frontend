@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 import TodoStatus from '../../components/TodoStatus'
+import PeopleIcon from '@mui/icons-material/People'
 
 const GroupList = ({ groups }) => {
     const navigate = useNavigate()
@@ -29,9 +30,33 @@ const GroupList = ({ groups }) => {
                         }
                     }}
                 >
-                    <Typography
-                        sx={{ fontWeight: 'bold' }}
-                    >{group.name}</Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <Typography
+                            sx={{ fontWeight: 'bold' }}
+                        >{group.name}</Typography>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <PeopleIcon fontSize='small' />
+                            <Typography
+                                sx={{ marginLeft: 0.3, fontSize: 15 }}
+                            >
+                                {group.users ? group.users.length : 0}
+                            </Typography>
+                        </Box>
+                    </Box>
+                    
                     <TodoStatus todos={group.todos} />
                 </Box>
             )}
