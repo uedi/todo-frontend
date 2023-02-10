@@ -86,6 +86,14 @@ const List = () => {
             >
                 Create new todo
             </Button>
+            <Typography variant='h5'
+                sx={{
+                    margin: 2,
+                    flex: 1
+                }}
+            >
+                List: {list.name}
+            </Typography>
             <Box
                 sx={{
                     display: 'flex',
@@ -99,7 +107,7 @@ const List = () => {
                         flex: 1
                     }}
                 >
-                    Todos ({list.name})
+                    Todos
                 </Typography>
                 <Box
                     sx={{
