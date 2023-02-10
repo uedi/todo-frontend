@@ -24,7 +24,7 @@ const DateInfo = ({ todo }) => {
     )
 }
 
-const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked }) => {
+const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked, color }) => {
     if(!todos) {
         return null
     }
@@ -42,7 +42,7 @@ const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked }) =>
             todos.map(todo =>
                 <Box key={todo.id}
                     sx={{
-                        backgroundColor: 'white',
+                        backgroundColor: color || 'white',
                         padding: 2,
                         borderRadius: 2,
                         marginBottom: 2,

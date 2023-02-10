@@ -10,6 +10,9 @@ const EditList = ({ list, isOpen, close, update, deleteList }) => {
     useEffect(() => {
         if(list) {
             setListName(list.name)
+            if(list.color) {
+                setColor(list.color)
+            }
         }
     }, [list])
 

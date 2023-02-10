@@ -174,6 +174,7 @@ const List = () => {
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
                 todoClicked={todoClicked}
+                color={list.color}
             />
             <CreateTodo
                 isOpen={todoOpen}
