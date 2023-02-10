@@ -8,7 +8,7 @@ const ListListItem = ({ list, handleClick }) => {
         <Box
             onClick={() => handleClick(list.id)}
             sx={{
-                backgroundColor: 'white',
+                backgroundColor: `${list.color || 'white'}`,
                 padding: 2,
                 borderRadius: 2,
                 marginBottom: 2,

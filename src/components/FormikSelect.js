@@ -1,14 +1,19 @@
 import React from 'react'
 import { useField } from 'formik'
-import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
-const FormikSelect = ({ label, name, items }) => {
+const FormikSelect = ({ label, name, items, isColor }) => {
     const [field, meta, helpers] = useField(name)
-    
+
     return (
-        <FormControl fullWidth>
-            <InputLabel>{label}</InputLabel>
+        <FormControl fullWidth
+            sx={{
+                backgroundColor: `${isColor ? field.value : ''}`
+            }}
+        >
+            <InputLabel id='label'>{label}</InputLabel>
             <Select
+                labelId='label'
                 value={field.value}
                 label={label}
                 name={name}

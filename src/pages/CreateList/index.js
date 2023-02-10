@@ -1,35 +1,33 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import CreateListForm from './CreateListForm'
 import { CircularProgress } from '@mui/material'
 import listsService from '../../services/lists'
 import { addList } from '../../reducers/listsReducer'
+import { backgroundColorsForSelect } from '../../utils/colors'
 
 const initialValues = {
     name: '',
-    groupId: ''
+    color: ''
 }
 
 const validationSchema = yup.object().shape({
     name: yup.string().required('Name is required'),
 })
 
-
 const CreateList = () => {
     const [inProgress, setInProgress] = useState(false)
-    const groups = useSelector(state => state.groups)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const groupsToShow = groups || []
 
     const onSubmit = newList => {
         setInProgress(true)
         const listToCreate = {
             ...newList,
-            groupId: newList.groupId === '' ? null : newList.groupId
+            color: newList.color === '' ? null : newList.color
         }
         listsService.create(listToCreate)
         .then(response => {
@@ -58,7 +56,12 @@ const CreateList = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ handleSubmit }) => <CreateListForm onSubmit={handleSubmit} groups={groupsToShow} />}
+                    {({ handleSubmit }) =>
+                        <CreateListForm
+                            onSubmit={handleSubmit}
+                            colors={backgroundColorsForSelect}
+                        />
+                    }
                 </Formik>
                 
             </div>
