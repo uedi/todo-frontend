@@ -6,6 +6,9 @@ import DeleteIcon from '@mui/icons-material/Delete'
 const DateInfo = ({ todo }) => {
     const startDate = todo.start ? Date.parse(todo.start) : null
     const endDate = todo.end ? Date.parse(todo.end) : null
+    const dlDate = new Date(endDate)
+    const nowDate = new Date()
+    const deadlinePassed = dlDate && dlDate < nowDate
 
     if(!(startDate || endDate)) {
         return null
@@ -19,7 +22,9 @@ const DateInfo = ({ todo }) => {
             }}
         >
             <Typography>{startDate ? `Start ${format(startDate, 'dd.MM.yyyy')}` : ''}</Typography>
-            <Typography>{endDate ? `Deadline ${format(endDate, 'dd.MM.yyyy')}` : ''}</Typography>
+            <Typography
+                style={ deadlinePassed ? { color: 'red' } : {}}
+            >{endDate ? `Deadline ${format(endDate, 'dd.MM.yyyy')}` : ''}</Typography>
         </Box>
     )
 }
