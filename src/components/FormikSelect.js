@@ -8,7 +8,7 @@ const FormikSelect = ({ label, name, items, isColor }) => {
     return (
         <FormControl fullWidth
             sx={{
-                backgroundColor: `${isColor ? field.value : ''}`
+                backgroundColor: isColor ? field.value : ''
             }}
         >
             <InputLabel id='label'>{label}</InputLabel>
