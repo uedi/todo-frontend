@@ -3,8 +3,10 @@ import EditListDialog from './EditListDialog'
 
 const EditList = ({ list, isOpen, close, update, deleteList }) => {
     const [listName, setListName] = useState('')
+    const [color, setColor] = useState('')
     const nameChanged = list && list.name !== listName && listName !== ''
-
+    const colorChanged = list.color !== color && color !== ''
+    const changed = nameChanged || colorChanged
     useEffect(() => {
         if(list) {
             setListName(list.name)
@@ -17,7 +19,8 @@ const EditList = ({ list, isOpen, close, update, deleteList }) => {
 
     const handleUpdate = () => {
         update(list.id, {
-            name: listName
+            name: listName,
+            color: colorChanged ? color : null
         })
     }
 
@@ -26,10 +29,12 @@ const EditList = ({ list, isOpen, close, update, deleteList }) => {
             isOpen={isOpen}
             close={close}
             listName={listName}
-            changed={nameChanged}
+            changed={changed}
             setListName={handleSetListName}
             update={handleUpdate}
             deleteList={() => deleteList(list.id)}
+            color={color}
+            setColor={setColor}
         />
     )
 }

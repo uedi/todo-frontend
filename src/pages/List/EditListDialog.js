@@ -1,9 +1,10 @@
 import React from 'react'
 import { Dialog, Box, DialogContent, DialogActions, Button, Typography } from '@mui/material'
 import { TextField } from '@mui/material'
+import ColorPicker from '../../components/ColorPicker'
 
 const EditListDialog = ({ isOpen, close, listName, setListName, changed,
-    update, deleteList }) => {
+    update, deleteList, color, setColor }) => {
     return (
         <Dialog
             fullWidth={true}
@@ -32,6 +33,10 @@ const EditListDialog = ({ isOpen, close, listName, setListName, changed,
                     value={listName}
                     onChange={setListName}
                     label={'Name'}
+                />
+                <ColorPicker
+                    color={color}
+                    setColor={setColor}
                 />
             </DialogContent>
             <DialogActions>
