@@ -88,6 +88,7 @@ const App = () => {
             <>
                 <PublicHeader />
                 <PublicRoutes />
+                <Notification />
             </>
         )
     }

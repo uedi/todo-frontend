@@ -9,6 +9,11 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
+export const showError = (error) => {
+    const msg = error?.response?.data?.error || 'Something went wrong'
+    return setNotification(msg, 'error', 5)
+}
+
 export const setNotification = (message, type = 'info', seconds = 4) => {
 
     const notification = {
