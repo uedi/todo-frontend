@@ -1,20 +1,12 @@
 import React, { useState } from 'react'
-import { AppBar, Container, Toolbar, Box, Button, IconButton, Tooltip,
+import { AppBar, Container, Toolbar, Box, IconButton, Tooltip,
     Menu, MenuItem, Typography } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
 import { LOCAL_STORAGE_LOGGED_USER } from '../utils/config'
 import { removeUser } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
-
-const NavBarButton = ({ text, onClick }) => (
-    <Button
-        sx={{ my: 2, color: 'white', display: 'block'}}
-        onClick={onClick}
-    >
-        {text}
-    </Button>
-)
+import NavBarButton from './NavBarButton'
 
 const Navbar = () => {
     const [anchorMenu, setAnchorMenu] = useState(null)

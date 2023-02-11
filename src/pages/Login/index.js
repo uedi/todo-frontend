@@ -8,6 +8,7 @@ import accountService from '../../services/account'
 import { setUser } from '../../reducers/userReducer'
 import { setToken } from '../../reducers/tokenReducer'
 import { LOCAL_STORAGE_LOGGED_USER } from '../../utils/config'
+import { showError } from '../../reducers/notificationReducer'
 
 const initialValues = {
     username: '',
@@ -37,7 +38,7 @@ const Login = () => {
             }
         })
         .catch(error => {
-            console.log('error in login', error)
+            dispatch(showError(error))
             setInProgress(false)
         })
     }

@@ -1,17 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { AppBar, Container, Toolbar, Box } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import NavBarButton from './NavBarButton'
 
 const PublicHeader = () => {
+    const navigate = useNavigate()
+
     return (
-        <div className='header'>
-            <div className='header-navigation'>
-                <Link to='/'>Home</Link>
-            </div>
-            <div className='header-control'>
-                <Link className='header-signup' to='/signup'>Signup</Link>
-                <Link className='header-login' to='/login'>Login</Link>
-            </div>
-        </div>
+        <AppBar position='static'>
+            <Container maxWidth='sm'>
+                <Toolbar disableGutters>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'}}}>
+                        <NavBarButton text='Home' onClick={() => navigate('/')} />
+                        <Box sx={{ flex: 1}} />
+                        <NavBarButton text='Signup' onClick={() => navigate('/signup')} />
+                        <NavBarButton text='Login' onClick={() => navigate('/login')} />
+                    </Box>
+                </Toolbar>
+            </Container>
+        </AppBar>
     )
 }
 
