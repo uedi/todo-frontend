@@ -12,8 +12,7 @@ import Account from '../pages/Account'
 import Contact from '../pages/Contact'
 import Messages from '../pages/Messages'
 import Members from '../pages/Members'
-
-const Home = () => ( <div></div>)
+import Home from '../pages/Home'
 
 const Routes = () => {
     return (

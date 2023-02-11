@@ -15,6 +15,7 @@ import listsService from './services/lists'
 import contactsService from './services/contacts'
 import Navbar from './components/Navbar'
 import { Box, Container } from '@mui/system'
+import Notification from './components/Notification'
 
 const App = () => {
     const user = useSelector(state => state.user)
@@ -114,6 +115,7 @@ const App = () => {
                     <Routes />
                 </Container>
             </Box>
+            <Notification />
         </Box>
     )
 }

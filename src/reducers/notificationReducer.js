@@ -9,9 +9,12 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
-export const setNotification = (message, seconds, isError = false) => {
+export const setNotification = (message, type = 'info', seconds = 4) => {
 
-    const notification = { message, isError }
+    const notification = {
+        message: message,
+        type: type
+    }
 
     return async dispatch => {
         dispatch({
