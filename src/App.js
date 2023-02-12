@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { LOCAL_STORAGE_LOGGED_USER } from './utils/config'
 import PublicRoutes from './navigation/PublicRoutes'
@@ -13,9 +13,11 @@ import { setContacts } from './reducers/contactsReducer'
 import groupsService from './services/groups'
 import listsService from './services/lists'
 import contactsService from './services/contacts'
+import requestsService from './services/requests'
 import Navbar from './components/Navbar'
 import { Box, Container } from '@mui/system'
 import Notification from './components/Notification'
+import { setRequests } from './reducers/requestsReducer'
 
 const App = () => {
     const user = useSelector(state => state.user)
@@ -23,7 +25,7 @@ const App = () => {
     const groups = useSelector(state => state.groups)
     const lists = useSelector(state => state.lists)
     const contacts = useSelector(state => state.contacts)
-
+    const requests = useSelector(state => state.requests)
     const dispatch = useDispatch()
     const authenticatedUser = user && token
 
@@ -82,6 +84,18 @@ const App = () => {
             })
         }
     }, [authenticatedUser, lists, dispatch])
+
+    useEffect(() => {
+        if(authenticatedUser && !requests) {
+            requestsService.getAll()
+            .then(response => {
+                dispatch(setRequests(response))
+            })
+            .catch(error => {
+                console.log('error in get requests', error)
+            })
+        }
+    }, [authenticatedUser, requests, dispatch])
 
     if(!user) {
         return (
