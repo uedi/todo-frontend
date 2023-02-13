@@ -13,6 +13,7 @@ import Contact from '../pages/Contact'
 import Messages from '../pages/Messages'
 import Members from '../pages/Members'
 import Home from '../pages/Home'
+import Requests from '../pages/Requests'
 
 const Routes = () => {
     return (
@@ -31,6 +32,7 @@ const Routes = () => {
                 <Route path='/contacts/new' element={<AddContact />} />
                 <Route path='/contacts/:id' element={<Contact />} />
                 <Route path='/account' element={<Account />} />
+                <Route path='/requests' element={<Requests />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </RouterRoutes>
         </>

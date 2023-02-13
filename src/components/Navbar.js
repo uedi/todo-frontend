@@ -68,6 +68,9 @@ const Navbar = () => {
                             <MenuItem onClick={() => navigate('Account')}>
                                 <Typography textAlign='center'>Account</Typography>
                             </MenuItem>
+                            <MenuItem onClick={() => navigate('requests')}>
+                                <Typography textAlign='center'>Requests</Typography>
+                            </MenuItem>
                             <MenuItem onClick={handleLogout}>
                                 <Typography textAlign='center'>Logout</Typography>
                             </MenuItem>

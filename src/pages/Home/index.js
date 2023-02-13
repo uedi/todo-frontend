@@ -1,18 +1,24 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 const Home = () => {
     const requests = useSelector(state => state.requests)
-    const membershipRequests = requests?.memberships?.length
+    const membershipRequests = requests?.memberships?.length || 0
+    const navigate = useNavigate()
 
     const ShowMemberShipRequests = () => (
-        <Typography>Membership requests: { membershipRequests || 0 }</Typography>
+        <Button
+            onClick={() => navigate('/requests')}
+        >
+            Membership requests: { membershipRequests || 0 }
+        </Button>
     )
 
     return (
         <>
-            { membershipRequests &&
+            { membershipRequests > 0 &&
                 <ShowMemberShipRequests />
             }
         </>
