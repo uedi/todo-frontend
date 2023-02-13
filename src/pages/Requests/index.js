@@ -18,8 +18,10 @@ const Requests = () => {
         requestsService.replyMembership(data)
         .then(response => {
             dispatch(setMembershipRequests(response.memberships))
-            dispatch(addGroup(response.group))
-            dispatch(showSuccess('Joined group'))
+            if(response.group) {
+                dispatch(addGroup(response.group))
+                dispatch(showSuccess('Joined group'))
+            }
         })
         .catch(error => {
             dispatch(showError(error))
