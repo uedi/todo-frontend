@@ -5,6 +5,8 @@ import RequestList from './RequestList'
 import requestsService from '../../services/requests'
 import { setMembershipRequests } from '../../reducers/requestsReducer'
 import { useDispatch } from 'react-redux'
+import { addGroup } from '../../reducers/groupsReducer'
+import { showError, showSuccess } from '../../reducers/notificationReducer'
 
 const Requests = () => {
     const requests = useSelector(state => state.requests)
@@ -15,10 +17,12 @@ const Requests = () => {
     const handleMembershipRequest = (data) => {
         requestsService.replyMembership(data)
         .then(response => {
-            dispatch(setMembershipRequests(response))
+            dispatch(setMembershipRequests(response.memberships))
+            dispatch(addGroup(response.group))
+            dispatch(showSuccess('Joined group'))
         })
         .catch(error => {
-            console.log('error in reply membership', error)
+            dispatch(showError(error))
         })
     }
 

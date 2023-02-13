@@ -14,6 +14,10 @@ export const showError = (error) => {
     return setNotification(msg, 'error', 5)
 }
 
+export const showSuccess = (msg) => {
+    return setNotification(msg, 'success', 4)
+}
+
 export const setNotification = (message, type = 'info', seconds = 4) => {
 
     const notification = {
