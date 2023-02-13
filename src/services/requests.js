@@ -7,4 +7,9 @@ const getAll = async () => {
     return response.data
 }
 
-export default { getAll }
+const replyMembership = async (data) => {
+    const response = await axios.post(`${requestsApiUrl}/membership`, data, header())
+    return response.data
+}
+
+export default { getAll, replyMembership }
