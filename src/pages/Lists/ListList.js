@@ -37,7 +37,7 @@ const ListList = ({ lists }) => {
     }
 
     const handleClick = (id) => {
-        navigate(id)
+        navigate(`/lists/${id}`)
     }
 
     return (
