@@ -3,7 +3,7 @@ import { Dialog, Box, DialogContent, DialogActions, Button, Typography } from '@
 import { TextField } from '@mui/material'
 
 const EditGroupDialog = ({ isOpen, close, groupName, setGroupName, changed,
-    update }) => {
+    update, deleteGroup }) => {
     return (
         <Dialog
             fullWidth={true}
@@ -21,6 +21,12 @@ const EditGroupDialog = ({ isOpen, close, groupName, setGroupName, changed,
                     }}
                 >
                     <Typography fontSize={21}>Update group</Typography>
+                    <Button
+                        color='error'
+                        onClick={deleteGroup}
+                    >
+                        Delete group
+                    </Button>
                 </Box>
                 <TextField
                     sx={{ marginTop: 2, marginBottom: 5 }}

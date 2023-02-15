@@ -119,6 +119,11 @@ const Group = () => {
         })
     }
 
+    const handleDeleteGroup = (id) => {
+        setEditOpen(false)
+        console.log('delete', id)
+    }
+
     return (
         <>
             <Box
@@ -208,6 +213,7 @@ const Group = () => {
                 close={() => setEditOpen(false)}
                 group={group}
                 update={handleUpdateGroup}
+                deleteGroup={handleDeleteGroup}
             />
             }
         </>

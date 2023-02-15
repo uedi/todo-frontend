@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import EditGroupDialog from './EditGroupDialog'
 
-const EditGroup = ({ group, isOpen, close, update }) => {
+const EditGroup = ({ group, isOpen, close, update, deleteGroup }) => {
     const [groupName, setGroupName] = useState('')
     const nameChanged = group && group.name !== groupName && groupName !== ''
 
@@ -29,6 +29,7 @@ const EditGroup = ({ group, isOpen, close, update }) => {
             changed={nameChanged}
             setGroupName={handleSetGroupName}
             update={handleUpdate}
+            deleteGroup={() => deleteGroup(group.id)}
         />
     )
 }
