@@ -3,8 +3,8 @@ import CreateTodoDialog from './CreateTodoDialog'
 
 const CreateTodo = ({ isOpen, close, createTodo }) => {
     const [todoName, setTodoName] = useState('')
-    const [startDate, setStartDate] = useState()
-    const [endDate, setEndDate] = useState()
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
 
     const handleCreate = () => {
         createTodo({
