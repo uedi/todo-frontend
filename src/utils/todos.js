@@ -6,7 +6,7 @@ const urgentTodos = (todos) => {
     for (let todo of todos) {
         if(todo.end) {
             const endDate = new Date(todo.end)
-            if(endDate < tomorrowDate) {
+            if(endDate < tomorrowDate && !todo.done) {
                 return true
             }
         }
