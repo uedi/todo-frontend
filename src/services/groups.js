@@ -22,4 +22,9 @@ const update = async (id, data) => {
     return response.data
 }
 
-export default { getAll, create, addMember, update }
+const remove = async (id) => {
+    const response = await axios.delete(`${groupsApiUrl}/${id}`, header())
+    return response.data
+}
+
+export default { getAll, create, addMember, update, remove }

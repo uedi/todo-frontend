@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Button, Typography, Box, IconButton } from '@mui/material'
 import TodoList from '../../components/TodoList'
 import todosService from '../../services/todos'
 import { updateGroupTodo, addTodoToGroup, deleteGroupTodo,
-    updateGroup } from '../../reducers/groupsReducer'
+    updateGroup, deleteGroup} from '../../reducers/groupsReducer'
 import CreateTodo from '../../components/CreateTodo'
 import UpdateTodo from '../../components/UpdateTodo'
 import GroupInfo from './GroupInfo'
@@ -26,6 +26,7 @@ const Group = () => {
     const messages = useSelector(state => state.messages)
     const params = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const messageCount = group && messages[group.id] ? messages[group.id].length : null
     const canModify = group?.membership?.owner
 
@@ -121,6 +122,11 @@ const Group = () => {
 
     const handleDeleteGroup = (id) => {
         setEditOpen(false)
+        groupsService.remove(id)
+        .then(() => {
+            navigate('/groups')
+            dispatch(deleteGroup(id))
+        })
         console.log('delete', id)
     }
 
