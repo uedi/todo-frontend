@@ -12,7 +12,7 @@ const GroupList = ({ groups }) => {
     }
 
     const handleClick = (id) => {
-        navigate(id)
+        navigate(`/groups/${id}`)
     }
 
     return (

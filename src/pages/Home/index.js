@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Button, Typography } from '@mui/material'
-import { listWithUrgentTodos } from '../../utils/todos'
+import { Button, Typography, Box } from '@mui/material'
+import { listWithUrgentTodos, groupWithUrgentTodos } from '../../utils/todos'
 import ListList from '../Lists/ListList'
+import GroupList from '../Groups/GroupList'
 
 const Home = () => {
     const requests = useSelector(state => state.requests)
     const lists = useSelector(state => state.lists)
+    const groups = useSelector(state => state.groups)
     const [urgentLists, setUrgentLists] = useState([])
+    const [urgentGroups, setUrgentGroups] = useState([])
     const membershipRequests = requests?.memberships?.length || 0
     const navigate = useNavigate()
 
@@ -23,6 +26,18 @@ const Home = () => {
             setUrgentLists(urgents)
         }
     }, [lists])
+
+    useEffect(() => {
+        if(groups) {
+            const urgents = []
+            for (let group of groups) {
+                if(groupWithUrgentTodos(group)) {
+                    urgents.push(group)
+                }
+            }
+            setUrgentGroups(urgents)
+        }
+    }, [groups])
 
     const ShowMemberShipRequests = () => (
         <Button
@@ -44,6 +59,15 @@ const Home = () => {
                         Following lists have deadlines soon
                     </Typography>
                     <ListList lists={urgentLists} />
+                    <Box sx={{ height: 5 }}/>
+                </>
+            }
+            { urgentGroups.length > 0 &&
+                <>
+                    <Typography variant='h6' sx={{ margin: 2 }}>
+                        Following groups have deadlines soon
+                    </Typography>
+                    <GroupList groups={urgentGroups} />
                 </>
             }
         </>
