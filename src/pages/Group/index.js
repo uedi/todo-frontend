@@ -229,6 +229,7 @@ const Group = () => {
                 todoClicked={todoClicked}
                 showDelete={showDelete}
                 deleteTodo={handleDeleteTodo}
+                color={group.color}
             />
             <CreateTodo
                 isOpen={todoOpen}
