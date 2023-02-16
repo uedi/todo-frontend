@@ -8,6 +8,8 @@ import groupsService from '../../services/groups'
 import { setMembers } from '../../reducers/groupsReducer'
 import ContactInfo from '../../components/ContactInfo'
 import { showError, showSuccess } from '../../reducers/notificationReducer'
+import contactsService from '../../services/contacts'
+import { addContact } from '../../reducers/contactsReducer'
 
 const Members = () => {
     const [addMemberOpen, setAddMemberOpen] = useState(false)
@@ -20,6 +22,7 @@ const Members = () => {
     const params = useParams()
     const dispatch = useDispatch()
     const memberIds = group?.users ? group.users.map(u => u.id) : []
+    const contactIds = contacts ? contacts.map(c => c.contactId) : []
     const isOwner = group?.membership.owner
     const myId = user?.user?.id
 
@@ -61,6 +64,21 @@ const Members = () => {
         })
     }
 
+    const handleAddContact = (username) => {
+        setContactInfoOpen(false)
+        contactsService.create({
+            username: username
+        })
+        .then(response => {
+            dispatch(addContact(response))
+            dispatch(showSuccess('Added to contacts'))
+        })
+        .catch(error => {
+            console.log(error)
+            dispatch(showError(error))
+        })
+    }
+
     return (
         <>
             { isOwner &&
@@ -75,6 +93,7 @@ const Members = () => {
                 members={group?.users}
                 memberClicked={memberClicked}
                 myId={myId}
+                contactIds={contactIds}
             />
             { isOwner &&
             <AddMember
@@ -93,6 +112,8 @@ const Members = () => {
                 removeText={'Remove from group'}
                 showRemove={isOwner}
                 myId={myId}
+                contactIds={contactIds}
+                addContact={handleAddContact}
             />
         </>
     )
