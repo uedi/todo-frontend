@@ -50,7 +50,15 @@ const Members = () => {
     }
 
     const handleRemoveContact = (id) => {
-        console.log('remove', id)
+        setContactInfoOpen(false)
+        groupsService.removeMember(group.id, id)
+        .then(response => {
+            dispatch(setMembers(group.id, response))
+            dispatch(showSuccess('Member removed'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
     }
 
     return (

@@ -17,6 +17,11 @@ const addMember = async (id, data) => {
     return response.data
 }
 
+const removeMember = async (groupId, memberId) => {
+    const response = await axios.delete(`${groupsApiUrl}/${groupId}/members/${memberId}`, header())
+    return response.data
+}
+
 const update = async (id, data) => {
     const response = await axios.put(`${groupsApiUrl}/${id}`, data, header())
     return response.data
@@ -27,4 +32,4 @@ const remove = async (id) => {
     return response.data
 }
 
-export default { getAll, create, addMember, update, remove }
+export default { getAll, create, addMember, update, remove, removeMember }
