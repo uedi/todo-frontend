@@ -15,6 +15,8 @@ import { setGroupMessages } from '../../reducers/messagesReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditGroup from './EditGroup'
 import { showError, showSuccess } from '../../reducers/notificationReducer'
+import LeaveGroup from './LeaveGroup'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 const Group = () => {
     const [group, setGroup] = useState()
@@ -23,13 +25,14 @@ const Group = () => {
     const [updateTodoOpen, setUpdateTodoOpen] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [editOpen, setEditOpen] = useState(false)
+    const [leaveOpen, setLeaveOpen] = useState(false)
     const groups = useSelector(state => state.groups)
     const messages = useSelector(state => state.messages)
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const messageCount = group && messages[group.id] ? messages[group.id].length : null
-    const canModify = group?.membership?.owner
+    const isOwner = group?.membership?.owner
 
     useEffect(() => {
         if(groups) {
@@ -134,6 +137,11 @@ const Group = () => {
         })
     }
 
+    const handleLeaveGroup = (id) => {
+        setLeaveOpen(false)
+        console.log('leaving', id)
+    }
+
     return (
         <>
             <Box
@@ -145,9 +153,9 @@ const Group = () => {
                 }}
             >
                 <Typography variant='h5'>
-                    { canModify ? 'Group:' : `Group: ${group.name}` }
+                    { isOwner ? 'Group:' : `Group: ${group.name}` }
                 </Typography>
-                { canModify &&
+                { isOwner &&
                 <Button
                     onClick={() => setEditOpen(true)}
                     sx={{
@@ -157,6 +165,14 @@ const Group = () => {
                 >
                     {group.name}
                 </Button>
+                }
+                { !isOwner &&
+                <IconButton
+                    size='small'
+                    onClick={() => setLeaveOpen(true)}
+                >
+                    <ExitToAppIcon />
+                </IconButton>
                 }
             </Box>
             <GroupInfo group={group} messageCount={messageCount} />
@@ -217,13 +233,21 @@ const Group = () => {
                 updateTodo={handleUpdateTodoData}
                 todo={todoToUpdate}
             />
-            { canModify &&
+            { isOwner &&
             <EditGroup
                 isOpen={editOpen}
                 close={() => setEditOpen(false)}
                 group={group}
                 update={handleUpdateGroup}
                 deleteGroup={handleDeleteGroup}
+            />
+            }
+            { !isOwner &&
+            <LeaveGroup
+                group={group}
+                isOpen={leaveOpen}
+                close={() => setLeaveOpen(false)}
+                leaveGroup={handleLeaveGroup}
             />
             }
         </>
