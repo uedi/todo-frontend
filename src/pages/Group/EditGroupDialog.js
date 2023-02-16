@@ -1,9 +1,10 @@
 import React from 'react'
 import { Dialog, Box, DialogContent, DialogActions, Button, Typography } from '@mui/material'
 import { TextField } from '@mui/material'
+import ColorPicker from '../../components/ColorPicker'
 
 const EditGroupDialog = ({ isOpen, close, groupName, setGroupName, changed,
-    update, deleteGroup }) => {
+    update, deleteGroup, color, setColor }) => {
     return (
         <Dialog
             fullWidth={true}
@@ -34,6 +35,10 @@ const EditGroupDialog = ({ isOpen, close, groupName, setGroupName, changed,
                     value={groupName}
                     onChange={setGroupName}
                     label={'Name'}
+                />
+                <ColorPicker
+                    color={color}
+                    setColor={setColor}
                 />
             </DialogContent>
             <DialogActions>

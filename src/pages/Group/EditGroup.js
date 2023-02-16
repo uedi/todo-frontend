@@ -3,11 +3,17 @@ import EditGroupDialog from './EditGroupDialog'
 
 const EditGroup = ({ group, isOpen, close, update, deleteGroup }) => {
     const [groupName, setGroupName] = useState('')
+    const [color, setColor] = useState('')
     const nameChanged = group && group.name !== groupName && groupName !== ''
+    const colorChanged = group.color !== color && color !== ''
+    const changed = nameChanged || colorChanged
 
     useEffect(() => {
         if(group) {
             setGroupName(group.name)
+            if(group.color) {
+                setColor(group.color)
+            }
         }
     }, [group])
 
@@ -17,7 +23,8 @@ const EditGroup = ({ group, isOpen, close, update, deleteGroup }) => {
 
     const handleUpdate = () => {
         update(group.id, {
-            name: groupName
+            name: groupName,
+            color: colorChanged ? color : null
         })
     }
 
@@ -26,10 +33,12 @@ const EditGroup = ({ group, isOpen, close, update, deleteGroup }) => {
             isOpen={isOpen}
             close={close}
             groupName={groupName}
-            changed={nameChanged}
+            changed={changed}
             setGroupName={handleSetGroupName}
             update={handleUpdate}
             deleteGroup={() => deleteGroup(group.id)}
+            color={color}
+            setColor={setColor}
         />
     )
 }
