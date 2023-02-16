@@ -3,13 +3,19 @@ import { Dialog, DialogContent, DialogActions, Button,
     Typography, Box } from '@mui/material'
 import QRCode from 'react-qr-code'
 
-const ContactInfo = ({ isOpen, close, contact, removeContact,
-        showRemove = false, removeText = 'Remove contact', myId }) => {
+const ContactInfo = ({ isOpen, close, contact, removeContact, contactIds,
+        showRemove = false, removeText = 'Remove contact', myId,
+        addContact }) => {
     const username = contact?.username ? contact.username : null
     const isMe = myId === contact?.id
+    const isContact = contactIds && contact && contactIds.includes(contact?.id)
 
     const handleRemove = () => {
         removeContact(contact.id)
+    }
+
+    const handleAddContact = () => {
+        addContact(contact.username)
     }
 
     return (
@@ -48,6 +54,13 @@ const ContactInfo = ({ isOpen, close, contact, removeContact,
                         />
                     }
                 </Box>
+                { !isMe && contactIds && !isContact &&
+                <Button
+                    onClick={handleAddContact}
+                >
+                    Add to contacts
+                </Button>
+                }
             </DialogContent>
             <DialogActions>
                 <Button onClick={close}>Close</Button>
