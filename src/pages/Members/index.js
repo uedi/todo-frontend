@@ -63,17 +63,20 @@ const Members = () => {
 
     return (
         <>
+            { isOwner &&
             <Button
                 onClick={() => setAddMemberOpen(true)}
             >
                 Add member
             </Button>
+            }
             <Typography variant='h5' sx={{ margin: 2 }}>Group members ({group?.name})</Typography>
             <MemberList
                 members={group?.users}
                 memberClicked={memberClicked}
                 myId={myId}
             />
+            { isOwner &&
             <AddMember
                 isOpen={addMemberOpen}
                 close={() => setAddMemberOpen(false)}
@@ -81,6 +84,7 @@ const Members = () => {
                 memberIds={memberIds}
                 contacts={contacts}
             />
+            }
             <ContactInfo
                 isOpen={contactInfoOpen}
                 close={() => setContactInfoOpen(false)}
