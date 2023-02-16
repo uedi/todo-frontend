@@ -1,10 +1,17 @@
 import React from 'react'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button,
+import { Dialog, DialogContent, DialogActions, Button,
     Typography, Box } from '@mui/material'
 import QRCode from 'react-qr-code'
 
-const ContactInfo = ({ isOpen, close, contact }) => {
+const ContactInfo = ({ isOpen, close, contact, removeContact,
+        showRemove = false, removeText = 'Remove contact', myId }) => {
     const username = contact?.username ? contact.username : null
+    const isMe = myId === contact?.id
+
+    const handleRemove = () => {
+        removeContact(contact.id)
+    }
+
     return (
         <Dialog
             fullWidth={true}
@@ -12,8 +19,24 @@ const ContactInfo = ({ isOpen, close, contact }) => {
             open={isOpen}
             onClose={close}
         >
-            <DialogTitle>{contact?.name || ''}</DialogTitle>
             <DialogContent>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: 1
+                    }}
+                >
+                    <Typography variant='h6'>{contact?.name || ''}</Typography>
+                    { showRemove && !isMe &&
+                        <Button
+                            color='error'
+                            onClick={handleRemove}
+                        >
+                            { removeText }
+                        </Button>
+                    }
+                </Box>
                 <Typography>{username ? `Username: ${username}` : ''}</Typography>
                 <Box
                     marginTop={3}

@@ -14,11 +14,14 @@ const Members = () => {
     const [group, setGroup] = useState()
     const [contactInfoOpen, setContactInfoOpen] = useState(false)
     const [contactToShow, setContactToShow] = useState(false)
+    const user = useSelector(state => state.user)
     const groups = useSelector(state => state.groups)
     const contacts = useSelector(state => state.contacts)
     const params = useParams()
     const dispatch = useDispatch()
     const memberIds = group?.users ? group.users.map(u => u.id) : []
+    const isOwner = group?.membership.owner
+    const myId = user?.user?.id
 
     useEffect(() => {
         if(groups) {
@@ -46,6 +49,10 @@ const Members = () => {
         setContactInfoOpen(true)
     }
 
+    const handleRemoveContact = (id) => {
+        console.log('remove', id)
+    }
+
     return (
         <>
             <Button
@@ -57,6 +64,7 @@ const Members = () => {
             <MemberList
                 members={group?.users}
                 memberClicked={memberClicked}
+                myId={myId}
             />
             <AddMember
                 isOpen={addMemberOpen}
@@ -69,6 +77,10 @@ const Members = () => {
                 isOpen={contactInfoOpen}
                 close={() => setContactInfoOpen(false)}
                 contact={contactToShow}
+                removeContact={handleRemoveContact}
+                removeText={'Remove from group'}
+                showRemove={isOwner}
+                myId={myId}
             />
         </>
     )

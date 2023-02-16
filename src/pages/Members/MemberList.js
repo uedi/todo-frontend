@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 
-const MemberList = ({ members, memberClicked }) => {
+const MemberList = ({ members, memberClicked, myId }) => {
 
     if(!members) {
         return null
@@ -22,7 +22,7 @@ const MemberList = ({ members, memberClicked }) => {
                         }
                     }}
                     >
-                    <Typography>{member.name}</Typography>
+                    <Typography>{member.name}{myId === member.id ? ' (me)' : ''}</Typography>
                 </Box>
             )}
         </>
