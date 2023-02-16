@@ -139,7 +139,15 @@ const Group = () => {
 
     const handleLeaveGroup = (id) => {
         setLeaveOpen(false)
-        console.log('leaving', id)
+        groupsService.leaveGroup(id)
+        .then(() => {
+            navigate('/groups')
+            dispatch(deleteGroup(id))
+            dispatch(showSuccess('Left group'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
     }
 
     return (
