@@ -7,6 +7,7 @@ import CreateGroupForm from './CreateGroupForm'
 import { CircularProgress } from '@mui/material'
 import groupsService from '../../services/groups'
 import { addGroup } from '../../reducers/groupsReducer'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const initialValues = {
     name: ''
@@ -27,9 +28,10 @@ const CreateGroup = () => {
         .then(response => {
             dispatch(addGroup(response))
             navigate('/groups')
+            dispatch(showSuccess('Group created'))
         })
         .catch(error => {
-            console.log('error in create group', error)
+            dispatch(showError(error))
             setInProgress(false)
         })
     }

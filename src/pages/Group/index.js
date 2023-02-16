@@ -14,6 +14,7 @@ import groupsService from '../../services/groups'
 import { setGroupMessages } from '../../reducers/messagesReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditGroup from './EditGroup'
+import { showError, showSuccess } from '../../reducers/notificationReducer'
 
 const Group = () => {
     const [group, setGroup] = useState()
@@ -69,7 +70,7 @@ const Group = () => {
             dispatch(addTodoToGroup(group.id, response))
         })
         .catch(error => {
-            console.log('error in create todo', error)
+            dispatch(showError(error))
         })
     }
 
@@ -80,7 +81,7 @@ const Group = () => {
             dispatch(updateGroupTodo(group?.id, response))
         })
         .catch(error => {
-            console.log('error in update todo', error)
+            dispatch(showError(error))
         })
     }
 
@@ -91,12 +92,11 @@ const Group = () => {
 
     const handleDeleteTodo = (id) => {
         todosService.deleteTodo(id)
-        .then(() => {})
-        .catch(error => {
-            console.log('error in delete todo', error)
-        })
-        .finally(() => {
+        .then(() => {
             dispatch(deleteGroupTodo(group.id, id))
+        })
+        .catch(error => {
+            dispatch(showError(error))
         })
     }
 
@@ -114,9 +114,10 @@ const Group = () => {
         groupsService.update(id, data)
         .then(response => {
             dispatch(updateGroup(response))
+            dispatch(showSuccess('Group updated'))
         })
         .catch(error => {
-            console.log('error in update group', error)
+            dispatch(showError(error))
         })
     }
 
@@ -126,8 +127,11 @@ const Group = () => {
         .then(() => {
             navigate('/groups')
             dispatch(deleteGroup(id))
+            dispatch(showSuccess('Group removed'))
         })
-        console.log('delete', id)
+        .catch(error => {
+            dispatch(showError(error))
+        })
     }
 
     return (

@@ -7,6 +7,7 @@ import { CircularProgress } from '@mui/material'
 import contactsService from '../../services/contacts'
 import { addContact } from '../../reducers/contactsReducer'
 import { useNavigate } from 'react-router-dom'
+import { showError, showSuccess } from '../../reducers/notificationReducer'
 
 const initialValues = {
     username: ''
@@ -25,13 +26,13 @@ const AddContact = () => {
         setInProgress(true)
         contactsService.create(newContactData)
         .then(response => {
-            console.log(response)
             dispatch(addContact(response))
             setInProgress(false)
             navigate('/contacts')
+            dispatch(showSuccess('Contact added'))
         })
         .catch(error => {
-            console.log('error in add contact')
+            dispatch(showError(error))
             setInProgress(false)
         })
     }

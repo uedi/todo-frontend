@@ -10,6 +10,7 @@ import TodoList from '../../components/TodoList'
 import { addTodoToList, updateTodo, deleteTodo, updateList, deleteList } from '../../reducers/listsReducer'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditList from './EditList'
+import { showError, showSuccess } from '../../reducers/notificationReducer'
 
 const List = () => {
     const [todoOpen, setTodoOpen] = useState(false)
@@ -47,7 +48,7 @@ const List = () => {
             dispatch(addTodoToList(list.id, response))
         })
         .catch(error => {
-            console.log('error in create todo', error)
+            dispatch(showError(error))
         })
     }
 
@@ -58,7 +59,7 @@ const List = () => {
             dispatch(updateTodo(list?.id, response))
         })
         .catch(error => {
-            console.log('error in update todo', error)
+            dispatch(showError(error))
         })
     }
 
@@ -69,12 +70,11 @@ const List = () => {
 
     const handleDeleteTodo = (id) => {
         todosService.deleteTodo(id)
-        .then(() => {})
-        .catch(error => {
-            console.log('error in delete todo', error)
-        })
-        .finally(() => {
+        .then(() => {
             dispatch(deleteTodo(list.id, id))
+        })
+        .catch(error => {
+            dispatch(showError(error))
         })
     }
 
@@ -88,9 +88,10 @@ const List = () => {
         listsService.update(id, data)
         .then(response => {
             dispatch(updateList(response))
+            dispatch(showSuccess('List updated'))
         })
         .catch(error => {
-            console.log('error in update list', error)
+            dispatch(showError(error))
         })
     }
 
@@ -100,9 +101,10 @@ const List = () => {
         .then(() => {
             navigate('/lists')
             dispatch(deleteList(id))
+            dispatch(showSuccess('List removed'))
         })
         .catch(error => {
-            console.log('error in delete list', error)
+            dispatch(showError(error))
         })
     }
 

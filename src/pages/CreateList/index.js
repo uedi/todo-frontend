@@ -8,6 +8,7 @@ import { CircularProgress } from '@mui/material'
 import listsService from '../../services/lists'
 import { addList } from '../../reducers/listsReducer'
 import { backgroundColorsForSelect } from '../../utils/colors'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const initialValues = {
     name: '',
@@ -33,9 +34,10 @@ const CreateList = () => {
         .then(response => {
             dispatch(addList(response))
             navigate('/lists')
+            dispatch(showSuccess('List created'))
         })
         .catch(error => {
-            console.log('error in create list', error)
+            dispatch(showError(error))
             setInProgress(false)
         })
     }
