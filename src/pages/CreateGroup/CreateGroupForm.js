@@ -1,8 +1,9 @@
 import React from 'react'
 import FormikTextInput from '../../components/FormikTextInput'
+import FormikSelect from '../../components/FormikSelect'
 import { Button, Grid, Typography } from '@mui/material'
 
-const CreateGroupForm = ({ onSubmit }) => {
+const CreateGroupForm = ({ onSubmit, colors }) => {
     return (
         <>
             <Grid container spacing={3}>
@@ -11,6 +12,9 @@ const CreateGroupForm = ({ onSubmit }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <FormikTextInput name='name' label='Name' />
+                </Grid>
+                <Grid item xs={12}>
+                    <FormikSelect name='color' label='Select color (optional)' items={colors} isColor />
                 </Grid>
                 <Grid item xs={12}>
                     <Button

@@ -8,9 +8,11 @@ import { CircularProgress } from '@mui/material'
 import groupsService from '../../services/groups'
 import { addGroup } from '../../reducers/groupsReducer'
 import { showSuccess, showError } from '../../reducers/notificationReducer'
+import { backgroundColorsForSelect } from '../../utils/colors'
 
 const initialValues = {
-    name: ''
+    name: '',
+    color: ''
 }
 
 const validationSchema = yup.object().shape({
@@ -24,7 +26,11 @@ const CreateGroup = () => {
 
     const onSubmit = newGroup => {
         setInProgress(true)
-        groupsService.create(newGroup)
+        const groupToCreate = {
+            ...newGroup,
+            color: newGroup.color === '' ? null : newGroup.color
+        }
+        groupsService.create(groupToCreate)
         .then(response => {
             dispatch(addGroup(response))
             navigate('/groups')
@@ -52,7 +58,12 @@ const CreateGroup = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ handleSubmit }) => <CreateGroupForm onSubmit={handleSubmit} />}
+                    {({ handleSubmit }) =>
+                        <CreateGroupForm
+                            onSubmit={handleSubmit}
+                            colors={backgroundColorsForSelect}
+                        />
+                    }
                 </Formik>
                 
             </div>

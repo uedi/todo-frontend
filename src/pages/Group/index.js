@@ -76,7 +76,7 @@ const Group = () => {
             dispatch(showError(error))
         })
     }
-
+console.log(group)
     const handleUpdateTodo = (data) => {
         const dataToSend = { ...data, groupId: group?.id }
         todosService.updateTodo(dataToSend)
