@@ -4,6 +4,10 @@ const contactsReducer = (state = null, action) => {
             return action.data
         case 'ADD_CONTACT':
             return state ? [...state, action.data] : [action.data]
+        case 'REMOVE_CONTACT':
+            return state ?
+                state.filter(c => c.contactId !== action.data)
+                : state
         default:
             return state
     }
@@ -20,6 +24,13 @@ export const addContact = contact => {
     return {
         type: 'ADD_CONTACT',
         data: contact
+    }
+}
+
+export const removeContact = id => {
+    return {
+        type: 'REMOVE_CONTACT',
+        data: id
     }
 }
 
