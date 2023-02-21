@@ -6,7 +6,7 @@ import { LightenDarkenColor } from 'lighten-darken-color'
 
 const ListListItem = ({ list, handleClick }) => {
     const color = list.color || '#ffffff'
-    const darkerColor = LightenDarkenColor(list.color, -10)
+    const darkerColor = LightenDarkenColor(color, -10)
 
     return (
         <Box

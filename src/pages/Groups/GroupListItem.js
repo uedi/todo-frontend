@@ -6,7 +6,7 @@ import PeopleIcon from '@mui/icons-material/People'
 
 const GroupListItem = ({ group, handleClick }) => {
     const color = group.color || '#ffffff'
-    const darkerColor = LightenDarkenColor(group.color, -10)
+    const darkerColor = LightenDarkenColor(color, -10)
 
     return (
         <Box
