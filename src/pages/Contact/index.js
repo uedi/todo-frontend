@@ -20,6 +20,7 @@ const Contact = () => {
     const dispatch = useDispatch()
 
     const contact = contacts && contacts.find(c => c.contactId.toString() === params.id)
+    const color = contact?.color || '#ffffff'
 
     if(!contact) {
         return null
@@ -58,12 +59,16 @@ const Contact = () => {
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        backgroundColor: color,
+                        borderRadius: 2,
+                        paddingRight: 2
                     }}
                 >
                     <Typography variant='h5'
                         sx={{
                             margin: 2,
+                            flex: 1
                         }}
                     >
                         {contact.name}
@@ -74,7 +79,7 @@ const Contact = () => {
                     >
                         <PersonRemoveIcon />
                     </IconButton>
-                    <Box width={10} />
+                    <Box width={20} />
                     <IconButton
                         size='small'
                         onClick={() => setEditOpen(true)}
@@ -106,7 +111,6 @@ const Contact = () => {
                 update={handleUpdate}
             />
         </>
-        
     )
 }
 
