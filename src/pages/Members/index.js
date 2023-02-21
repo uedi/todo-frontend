@@ -23,7 +23,7 @@ const Members = () => {
     const dispatch = useDispatch()
     const memberIds = group?.users ? group.users.map(u => u.id) : []
     const contactIds = contacts ? contacts.map(c => c.contactId) : []
-    const isOwner = group?.membership.owner
+    const isOwner = group?.membership?.owner
     const myId = user?.user?.id
 
     useEffect(() => {
