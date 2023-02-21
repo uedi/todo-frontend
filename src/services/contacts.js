@@ -17,4 +17,9 @@ const remove = async (id) => {
     return response.data
 }
 
-export default { getAll, create, remove }
+const update = async (id, data) => {
+    const response = await axios.put(`${contactsApiUrl}/${id}`, data, header())
+    return response.data
+}
+
+export default { getAll, create, remove, update }

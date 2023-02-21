@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import RemoveContact from './RemoveContact'
 import contactsService from '../../services/contacts'
 import { showSuccess, showError } from '../../reducers/notificationReducer'
-import { removeContact } from '../../reducers/contactsReducer'
+import { removeContact, updateContact } from '../../reducers/contactsReducer'
 import EditContact from './EditContact'
 
 const Contact = () => {
@@ -40,7 +40,15 @@ const Contact = () => {
 
     const handleUpdate = (id, data) => {
         setEditOpen(false)
-        console.log('update', id, data)
+        contactsService.update(id, data)
+        .then(response => {
+            dispatch(updateContact(response))
+            dispatch(showSuccess('Contact updated'))
+        })
+        .catch(error => {
+            console.log('error', error)
+            dispatch(showError(error))
+        })
     }
 
     return (
