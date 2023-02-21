@@ -7,6 +7,7 @@ const EditList = ({ list, isOpen, close, update, deleteList }) => {
     const nameChanged = list && list.name !== listName && listName !== ''
     const colorChanged = list.color !== color && color !== ''
     const changed = nameChanged || colorChanged
+
     useEffect(() => {
         if(list) {
             setListName(list.name)

@@ -3,15 +3,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useNavigate} from 'react-router-dom'
 import { Typography, Box, IconButton } from '@mui/material'
 import QRCode from 'react-qr-code'
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
+import EditIcon from '@mui/icons-material/Edit'
 import RemoveContact from './RemoveContact'
 import contactsService from '../../services/contacts'
 import { showSuccess, showError } from '../../reducers/notificationReducer'
 import { removeContact } from '../../reducers/contactsReducer'
+import EditContact from './EditContact'
 
 const Contact = () => {
     const contacts = useSelector(state => state.contacts)
     const [removeOpen, setRemoveOpen] = useState(false)
+    const [editOpen, setEditOpen] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -33,6 +36,11 @@ const Contact = () => {
         .catch(error => {
             dispatch(showError(error))
         })
+    }
+
+    const handleUpdate = (id, data) => {
+        setEditOpen(false)
+        console.log('update', id, data)
     }
 
     return (
@@ -58,6 +66,13 @@ const Contact = () => {
                     >
                         <PersonRemoveIcon />
                     </IconButton>
+                    <Box width={10} />
+                    <IconButton
+                        size='small'
+                        onClick={() => setEditOpen(true)}
+                    >
+                        <EditIcon />
+                    </IconButton>
                 </Box>
             </Box>
             <Box
@@ -75,6 +90,12 @@ const Contact = () => {
                 contact={contact}
                 close={() => setRemoveOpen(false)}
                 removeContact={handleRemoveContact}
+            />
+            <EditContact
+                isOpen={editOpen}
+                contact={contact}
+                close={() => setEditOpen(false)}
+                update={handleUpdate}
             />
         </>
         
