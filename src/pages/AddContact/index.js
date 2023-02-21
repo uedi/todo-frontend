@@ -8,9 +8,11 @@ import contactsService from '../../services/contacts'
 import { addContact } from '../../reducers/contactsReducer'
 import { useNavigate } from 'react-router-dom'
 import { showError, showSuccess } from '../../reducers/notificationReducer'
+import { backgroundColorsForSelect } from '../../utils/colors'
 
 const initialValues = {
-    username: ''
+    username: '',
+    color: ''
 }
 
 const validationSchema = yup.object().shape({
@@ -23,8 +25,12 @@ const AddContact = () => {
     const navigate = useNavigate()
 
     const onSubmit = newContactData => {
+        const dataToSend = {
+            ...newContactData,
+            color: newContactData.color === '' ? null : newContactData.color
+        }
         setInProgress(true)
-        contactsService.create(newContactData)
+        contactsService.create(dataToSend)
         .then(response => {
             dispatch(addContact(response))
             setInProgress(false)
@@ -52,7 +58,10 @@ const AddContact = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ handleSubmit }) => <AddContactForm onSubmit={handleSubmit} />}
+                    {({ handleSubmit }) => <AddContactForm
+                        onSubmit={handleSubmit}
+                        colors={backgroundColorsForSelect}
+                    />}
                 </Formik>
                 
             </div>
