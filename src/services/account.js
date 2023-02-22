@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { header } from "../utils/auth"
 const signupUrl = '/api/signup'
 const loginUrl = '/api/login'
+const accountUrl = '/api/account'
 
 const signup = async (data) => {
     const response = await axios.post(signupUrl, data, { timeout: 10000 })
@@ -12,4 +14,9 @@ const login = async (credentials) => {
     return response.data
 }
 
-export default { signup, login }
+const changePassword = async (data) => {
+    const response = await axios.put(`${accountUrl}/password`, data, header())
+    return response.data
+}
+
+export default { signup, login, changePassword }
