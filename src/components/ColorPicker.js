@@ -16,9 +16,25 @@ const ColorPicker = ({ color = '', setColor }) => {
                 label='Select color'
                 name='color'
                 onChange={event => setColor(event.target.value)}
+                MenuProps={{
+                    sx: {
+                        '&& .Mui-selected': {
+                            backgroundColor: color,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }}
             >
             { backgroundColorsForSelect.map(item =>
-                <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                <MenuItem
+                    key={item.id}
+                    value={item.id}
+                    sx={{
+                        bgcolor: item.id,
+                    }}
+                >
+                    {item.name}
+                </MenuItem>
             )}
             </Select>
         </FormControl>
