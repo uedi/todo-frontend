@@ -6,7 +6,6 @@ import * as yup from 'yup'
 import { CircularProgress } from '@mui/material'
 import accountService from '../../services/account'
 import { setUser } from '../../reducers/userReducer'
-import { setToken } from '../../reducers/tokenReducer'
 import { LOCAL_STORAGE_LOGGED_USER } from '../../utils/config'
 import { showError } from '../../reducers/notificationReducer'
 
@@ -31,11 +30,6 @@ const Login = () => {
         .then(response => {
             window.localStorage.setItem(LOCAL_STORAGE_LOGGED_USER, JSON.stringify(response))
             dispatch(setUser(response))
-            if(response.token) {
-                dispatch(setToken(response.token))
-            } else {
-                console.log('no token in response')
-            }
         })
         .catch(error => {
             dispatch(showError(error))

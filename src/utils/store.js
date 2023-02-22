@@ -5,7 +5,6 @@ import groupsReducer from '../reducers/groupsReducer'
 import listsReducer from '../reducers/listsReducer'
 import notificationReducer from '../reducers/notificationReducer'
 import contactsReducer from '../reducers/contactsReducer'
-import tokenReducer from '../reducers/tokenReducer'
 import messagesReducer from '../reducers/messagesReducer'
 import requestsReducer from '../reducers/requestsReducer'
 
@@ -15,7 +14,6 @@ const appReducer = combineReducers({
     lists: listsReducer,
     notification: notificationReducer,
     contacts: contactsReducer,
-    token: tokenReducer,
     messages: messagesReducer,
     requests: requestsReducer
 })
