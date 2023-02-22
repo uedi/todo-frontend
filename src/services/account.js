@@ -19,4 +19,9 @@ const changePassword = async (data) => {
     return response.data
 }
 
-export default { signup, login, changePassword }
+const changeName = async (data) => {
+    const response = await axios.put(`${accountUrl}/name`, data, header())
+    return response.data
+}
+
+export default { signup, login, changePassword, changeName }
