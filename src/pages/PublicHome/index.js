@@ -1,9 +1,11 @@
 import React from 'react'
+import { Typography } from '@mui/material'
 
 const PublicHome = () => {
     return (
-        <div>
-        </div>
+        <>
+            <Typography variant='h5' sx={{ margin: 2 }}>Todo App</Typography>
+        </>
     )
 }
 

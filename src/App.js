@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { LOCAL_STORAGE_LOGGED_USER } from './utils/config'
+import AppContainer from './components/AppContainer'
 import PublicRoutes from './navigation/PublicRoutes'
 import Routes from './navigation/Routes'
 import PublicHeader from './components/PublicHeader'
@@ -15,7 +16,7 @@ import listsService from './services/lists'
 import contactsService from './services/contacts'
 import requestsService from './services/requests'
 import Navbar from './components/Navbar'
-import { Box, Container } from '@mui/system'
+import { Box } from '@mui/material'
 import Notification from './components/Notification'
 import { setRequests } from './reducers/requestsReducer'
 
@@ -94,11 +95,19 @@ const App = () => {
 
     if(!user) {
         return (
-            <>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100vh'
+                }}
+            >
                 <PublicHeader />
-                <PublicRoutes />
+                <AppContainer>
+                    <PublicRoutes />
+                </AppContainer>
                 <Notification />
-            </>
+            </Box>
         )
     }
 
@@ -111,20 +120,9 @@ const App = () => {
             }}
         >
             <Navbar />
-            <Box
-                sx={{
-                    flex: 1,
-                    overflow: 'auto'
-                }}
-            >
-                <Container maxWidth='sm'
-                    sx={{
-                        marginTop: 2
-                    }}
-                >
-                    <Routes />
-                </Container>
-            </Box>
+            <AppContainer>
+                <Routes />
+            </AppContainer>
             <Notification />
         </Box>
     )
