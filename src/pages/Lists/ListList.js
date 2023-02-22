@@ -1,31 +1,26 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import TodoStatus from '../../components/TodoStatus'
-import { LightenDarkenColor } from 'lighten-darken-color'
+import ItemContainer from '../../components/ItemContainer'
 
 const ListListItem = ({ list, handleClick }) => {
     const color = list.color || '#ffffff'
-    const darkerColor = LightenDarkenColor(color, -10)
 
     return (
-        <Box
+        <ItemContainer
+            color={color}
             onClick={() => handleClick(list.id)}
-            sx={{
-                backgroundColor: color,
-                padding: 2,
-                borderRadius: 2,
-                marginBottom: 2,
-                '&:hover': {
-                    backgroundColor: darkerColor
-                }
-            }}
-            >
-            <Typography
-                sx={{ fontWeight: 'bold' }}
-            >{list.name}</Typography>
-            <TodoStatus todos={list.todos} />
-        </Box>
+        >
+            <>
+                <Typography
+                    sx={{ fontWeight: 'bold' }}
+                >
+                    {list.name}
+                </Typography>
+                <TodoStatus todos={list.todos} />
+            </>
+        </ItemContainer>
     )
 }
 

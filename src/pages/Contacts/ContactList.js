@@ -1,27 +1,18 @@
 import React from 'react'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { LightenDarkenColor } from 'lighten-darken-color'
+import ItemContainer from '../../components/ItemContainer'
 
 const ContactListItem = ({ contact, onClick }) => {
     const color = contact.color || '#ffffff'
-    const darkerColor = LightenDarkenColor(color, -10)
 
     return (
-        <Box
+        <ItemContainer
             onClick={onClick}
-            sx={{
-                backgroundColor: color,
-                padding: 2,
-                borderRadius: 2,
-                marginBottom: 2,
-                '&:hover': {
-                    backgroundColor: darkerColor
-                }
-            }}
+            color={color}
         >
             <Typography>{contact.name}</Typography>
-        </Box>
+        </ItemContainer>
     )
 }
 

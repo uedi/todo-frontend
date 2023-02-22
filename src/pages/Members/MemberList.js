@@ -1,25 +1,18 @@
 import React from 'react'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
+import ItemContainer from '../../components/ItemContainer'
 
 const MemberListItem = ({ member, memberClicked, myId, contactIds }) => {
     const isMe = myId === member.id
     const isContact = contactIds.includes(member.id)
     const info = isMe ? ' (me)' : isContact ? '' : ' (not contact)'
+
     return (
-        <Box
+        <ItemContainer
             onClick={() => memberClicked(member)}
-            sx={{
-                backgroundColor: 'white',
-                padding: 2,
-                borderRadius: 2,
-                marginBottom: 2,
-                '&:hover': {
-                    backgroundColor: '#f5f5f5'
-                }
-            }}
         >
             <Typography>{member.name}{info}</Typography>
-        </Box>
+        </ItemContainer>
     )
 }
 
