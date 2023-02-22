@@ -27,6 +27,11 @@ const Navbar = () => {
         navigate('/')
     }
 
+    const handleMenuNavigate = (target) => {
+        handleCloseMenu()
+        navigate(target)
+    }
+
     return (
         <AppBar position='static'>
             <Container maxWidth='sm'>
@@ -65,10 +70,10 @@ const Navbar = () => {
                             open={Boolean(anchorMenu)}
                             onClose={handleCloseMenu}
                         >
-                            <MenuItem onClick={() => navigate('Account')}>
+                            <MenuItem onClick={() => handleMenuNavigate('account')}>
                                 <Typography textAlign='center'>Account</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => navigate('requests')}>
+                            <MenuItem onClick={() => handleMenuNavigate('requests')}>
                                 <Typography textAlign='center'>Requests</Typography>
                             </MenuItem>
                             <MenuItem onClick={handleLogout}>
