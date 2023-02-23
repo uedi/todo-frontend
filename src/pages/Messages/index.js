@@ -13,11 +13,17 @@ const Messages = () => {
     const groupMessages = messages[groupId] || []
     const group = groups && groups.find(g => g.id.toString() === groupId)
 
+    const handleDeleteMessage = (id) => {
+        console.log('delete', id)
+    }
     return (
         <>
             <Typography variant='h5' sx={{ margin: 2 }}>Messages ({group?.name})</Typography>
             <MessageInput groupId={groupId} />
-            <MessageList messages={groupMessages} />
+            <MessageList
+                messages={groupMessages}
+                deleteMessage={handleDeleteMessage}
+            />
         </>
     )
 }
