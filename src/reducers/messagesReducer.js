@@ -14,6 +14,16 @@ const messagesReducer = (state = {}, action) => {
             g[action.data.id] = newMsgs
             return { ...state, ...g }
         }
+        case 'REMOVE_GROUP_MESSAGE': {
+            if(!(action.data.groupId) in state) {
+                return state
+            }
+            const gs = {}
+            const oldmsgs = state[action.data.groupId]
+            const newmsgs = oldmsgs.filter(m => m.id !== action.data.messageId)
+            gs[action.data.groupId] = newmsgs
+            return { ...state, ...gs }
+        }
         default:
             return state
     }
@@ -42,6 +52,16 @@ export const addGroupMessage = (groupId, message) => {
         data: {
             id: groupId,
             message: message
+        }
+    }
+}
+
+export const removeGroupMessage = (groupId, messageId) => {
+    return {
+        type: 'REMOVE_GROUP_MESSAGE',
+        data: {
+            groupId: groupId,
+            messageId: messageId
         }
     }
 }

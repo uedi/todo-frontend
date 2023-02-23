@@ -13,4 +13,9 @@ const sendMessage = async (data) => {
     return response.data
 }
 
-export default { getGroupMessages, sendMessage }
+const deleteMessage = async (id) => {
+    const response = await axios.delete(`${messagesApiUrl}/${id}`, header())
+    return response.data
+}
+
+export default { getGroupMessages, sendMessage, deleteMessage }
